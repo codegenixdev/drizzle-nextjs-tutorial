@@ -1,20 +1,11 @@
-version: "3"
 services:
   db:
-    image: postgres
-    restart: always
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
-
+    image: postgres:16
     environment:
-      - POSTGRES_DB=testDB
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-
-  adminer:
-    image: adminer
-    restart: always
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
     ports:
-      - 8080:8080
+      - ${DB_PORT}:5432
+    volumes:
+      - ./db-data:/var/lib/postgresql/data

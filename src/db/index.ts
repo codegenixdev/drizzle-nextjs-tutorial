@@ -2,11 +2,17 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Client } from "pg";
 
 import * as schema from "@/db/schema";
+import { registerService } from "@/db/utils/registerService";
+import env from "@/env";
 
 const client = new Client({
-	connectionString: process.env.DATABASE_URL,
+	connectionString: env.DATABASE_URL,
 });
 
 client.connect();
 
-export const db = drizzle(client, { schema });
+// TODO: logger true
+
+export const db = registerService("db", () => drizzle(client, { schema }));
+
+export type DBType = typeof db;
