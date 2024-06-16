@@ -57,7 +57,7 @@ export default async function Page(props: Props) {
 			</article>
 			<pre>{JSON.stringify(postData.comments, null, 2)}</pre>
 			{postData.comments
-				.filter((comment) => !comment.parentRootId)
+				.filter((comment) => !comment.parentId)
 				.map((comment) => (
 					<Card key={comment.id}>
 						<CardHeader>
@@ -73,8 +73,8 @@ export default async function Page(props: Props) {
 						</CardHeader>
 						<CardContent>
 							<p>{comment.content}</p>
+							{/* TODO: nested comment */}
 						</CardContent>
-						{/* TODO: nested comments */}
 					</Card>
 				))}
 

@@ -15,6 +15,13 @@
       "when": 1718483859546,
       "tag": "0001_last_angel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1718510157893,
+      "tag": "0002_brief_harrier",
+      "breakpoints": true
     }
   ]
 }
