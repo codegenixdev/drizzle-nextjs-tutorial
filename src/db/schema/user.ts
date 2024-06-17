@@ -1,5 +1,11 @@
 import { InferSelectModel, relations } from "drizzle-orm";
-import { pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+	integer,
+	pgTable,
+	serial,
+	timestamp,
+	varchar,
+} from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -8,6 +14,7 @@ import { post } from "@/db/schema/post";
 export const user = pgTable("user", {
 	id: serial("id").primaryKey(),
 	fullName: varchar("fullName", { length: 255 }).notNull(),
+	age: integer("age").notNull(),
 	password: varchar("password", { length: 255 }).notNull(),
 	createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
 	updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
@@ -18,8 +25,13 @@ export const userRelations = relations(user, ({ many }) => ({
 }));
 
 export type SelectUserModel = InferSelectModel<typeof user>;
-const insertUserSchema = createInsertSchema(user);
-export type InsertUserSchema = z.infer<typeof insertUserSchema>;
+export const userSchema = createInsertSchema(user, {
+	fullName: (schema) => schema.fullName.min(1),
+	password: (schema) => schema.password.min(1),
+	age: z.coerce.number().min(18).max(99),
+});
+
+export type UserSchema = z.infer<typeof userSchema>;
 
 // const insertUserSchema = createInsertSchema(users, {
 // 	role: z.string(),

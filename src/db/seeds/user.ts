@@ -1,15 +1,16 @@
 import { DBType } from "@/db";
 import { user } from "@/db/schema";
-import { InsertUserSchema } from "@/db/schema/user";
+import { UserSchema } from "@/db/schema/user";
 import { faker } from "@faker-js/faker";
 
 const mock = () => {
-	const data: InsertUserSchema[] = [];
+	const data: UserSchema[] = [];
 
 	for (let i = 0; i < 20; i++) {
 		data.push({
 			fullName: faker.person.fullName(),
 			password: faker.internet.password(),
+			age: faker.number.int({ min: 18, max: 99 }),
 		});
 	}
 

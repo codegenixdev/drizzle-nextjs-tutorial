@@ -49,7 +49,6 @@ export default async function Page(props: Props) {
 			<article className="container max-w-2xl">
 				{parse(postData.content)}
 			</article>
-			<pre>{JSON.stringify(postData.comments, null, 2)}</pre>
 			{postData.comments
 				.filter((comment) => !comment.parentId)
 				.map((comment) => (

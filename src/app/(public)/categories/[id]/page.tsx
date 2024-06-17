@@ -19,25 +19,6 @@ export default async function Page(props: Props) {
 			.from(post)
 			.where(eq(post.categoryId, +props.params.id)),
 
-		// db.query.category
-		// 	.findMany({
-		// 		limit,
-		// 		offset,
-		// 		where: eq(category.id, +props.params.id),
-		// 		columns: {},
-		// 		with: {
-		// 			posts: {
-		// 				columns: {
-		// 					id: true,
-		// 					title: true,
-		// 					updatedAt: true,
-		// 					shortDescription: true,
-		// 				},
-		// 			},
-		// 		},
-		// 	})
-		// 	.then((res) => res[0].posts),
-
 		db
 			.select({
 				id: post.id,

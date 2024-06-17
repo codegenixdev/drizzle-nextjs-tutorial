@@ -41,7 +41,16 @@ export const postRelations = relations(post, ({ one, many }) => ({
 	}),
 }));
 
-const insertPostSchema = createInsertSchema(post);
+export const postSchema = createInsertSchema(post, {
+	title: (schema) => schema.title.min(1),
+	shortDescription: (schema) => schema.shortDescription.min(1).max(255),
+	userId: (schema) => schema.userId.min(1),
+	categoryId: (schema) => schema.categoryId.min(1),
+}).and(
+	z.object({
+		tagIds: z.array(z.number()).min(1),
+	})
+);
 
-export type InsertPostSchema = z.infer<typeof insertPostSchema>;
+export type PostSchema = z.infer<typeof postSchema>;
 export type SelectPostModel = InferSelectModel<typeof post>;

@@ -1,6 +1,6 @@
 {
-  "id": "7d210200-8db9-43a3-8196-1996cc588e0c",
-  "prevId": "1683392c-4c46-4de4-b860-b3c3a048e07a",
+  "id": "559f8a6a-70c7-496a-bbf4-d35fcf3758b0",
+  "prevId": "2f8236e5-e319-4e59-8c45-6bdd375b7560",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -279,7 +279,15 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "tag_name_unique": {
+          "name": "tag_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        }
+      }
     },
     "public.user": {
       "name": "user",
@@ -294,6 +302,12 @@
         "fullName": {
           "name": "fullName",
           "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "age": {
+          "name": "age",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },

@@ -1,5 +1,5 @@
 {
-  "id": "1683392c-4c46-4de4-b860-b3c3a048e07a",
+  "id": "2f8236e5-e319-4e59-8c45-6bdd375b7560",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -291,15 +291,15 @@
           "primaryKey": true,
           "notNull": true
         },
-        "first_name": {
-          "name": "first_name",
+        "fullName": {
+          "name": "fullName",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
-        "last_name": {
-          "name": "last_name",
-          "type": "varchar(255)",
+        "age": {
+          "name": "age",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
@@ -327,15 +327,7 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "user_last_name_unique": {
-          "name": "user_last_name_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "last_name"
-          ]
-        }
-      }
+      "uniqueConstraints": {}
     }
   },
   "enums": {},

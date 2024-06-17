@@ -7,7 +7,7 @@ import { postToTag } from "@/db/schema";
 
 export const tag = pgTable("tag", {
 	id: serial("id").primaryKey(),
-	name: varchar("name", { length: 255 }).notNull(),
+	name: varchar("name", { length: 255 }).notNull().unique(),
 });
 
 export const tagRelations = relations(tag, ({ many }) => ({

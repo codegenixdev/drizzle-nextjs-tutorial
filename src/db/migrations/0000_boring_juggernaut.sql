@@ -38,12 +38,11 @@ CREATE TABLE IF NOT EXISTS "tag" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"first_name" varchar(255) NOT NULL,
-	"last_name" varchar(255) NOT NULL,
+	"fullName" varchar(255) NOT NULL,
+	"age" integer NOT NULL,
 	"password" varchar(255) NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "user_last_name_unique" UNIQUE("last_name")
+	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN
