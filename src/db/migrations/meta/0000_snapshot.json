@@ -1,5 +1,5 @@
 {
-  "id": "197edf39-e6f9-46f2-b421-eef9322be44e",
+  "id": "1683392c-4c46-4de4-b860-b3c3a048e07a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -50,12 +50,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "parent_root_id": {
-          "name": "parent_root_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
         "user_id": {
           "name": "user_id",
           "type": "integer",
@@ -73,23 +67,24 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "comment_user_id_user_id_fk": {
-          "name": "comment_user_id_user_id_fk",
-          "tableFrom": "comment",
-          "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
         "comment_parent_id_comment_id_fk": {
           "name": "comment_parent_id_comment_id_fk",
           "tableFrom": "comment",
@@ -103,12 +98,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "comment_parent_root_id_comment_id_fk": {
-          "name": "comment_parent_root_id_comment_id_fk",
+        "comment_user_id_user_id_fk": {
+          "name": "comment_user_id_user_id_fk",
           "tableFrom": "comment",
-          "tableTo": "comment",
+          "tableTo": "user",
           "columnsFrom": [
-            "parent_root_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -296,14 +291,14 @@
           "primaryKey": true,
           "notNull": true
         },
-        "name": {
-          "name": "name",
+        "first_name": {
+          "name": "first_name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
-        "email": {
-          "name": "email",
+        "last_name": {
+          "name": "last_name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -333,11 +328,11 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "user_email_unique": {
-          "name": "user_email_unique",
+        "user_last_name_unique": {
+          "name": "user_last_name_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "email"
+            "last_name"
           ]
         }
       }

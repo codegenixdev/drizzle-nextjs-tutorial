@@ -2,17 +2,13 @@ import { eq } from "drizzle-orm";
 import parse from "html-react-parser";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Fragment } from "react";
 
 import { PostCards } from "@/components/post-cards";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { UserAvatar } from "@/components/user-avatar";
 import { db } from "@/db";
-import { post } from "@/db/schema";
+import { post, user } from "@/db/schema";
 
 type Props = { params: { id: string } };
 export default async function Page(props: Props) {
@@ -20,7 +16,9 @@ export default async function Page(props: Props) {
 		where: eq(post.id, +props.params.id),
 		with: {
 			category: true,
-			user: { columns: { name: true } },
+			user: {
+				columns: { id: true, fullName: true },
+			},
 			comments: { with: { user: true } },
 		},
 	});
@@ -35,15 +33,11 @@ export default async function Page(props: Props) {
 
 	return (
 		<main className="flex flex-col gap-3">
+			<pre></pre>
 			<h1 className="text-2xl font-bold">{postData.title}</h1>
 
 			<div className="flex items-center gap-5">
-				<div className="flex items-center gap-2">
-					<Avatar>
-						<AvatarFallback>{postData.user.name[0]}</AvatarFallback>
-					</Avatar>
-					<p>{postData.user.name}</p>
-				</div>
+				<UserAvatar data={postData.user} />
 				{!!postData.categoryId && (
 					<Link href={`/categories/${postData.categoryId}`}>
 						{postData.category?.name}
@@ -61,19 +55,18 @@ export default async function Page(props: Props) {
 				.map((comment) => (
 					<Card key={comment.id}>
 						<CardHeader>
-							<div className="flex items-center gap-2">
-								<Avatar>
-									<AvatarFallback>{comment.user.name[0]}</AvatarFallback>
-								</Avatar>
-								<p>{comment.user.name}</p>
-							</div>
-							<CardDescription>
-								{new Date(comment.updatedAt).toDateString()}
-							</CardDescription>
+							<UserAvatar data={comment.user} />
 						</CardHeader>
 						<CardContent>
-							<p>{comment.content}</p>
-							{/* TODO: nested comment */}
+							<p className="mb-3">{comment.content}</p>
+							{postData.comments
+								.filter((item) => comment.id === item.parentId)
+								.map((item) => (
+									<Fragment key={item.id}>
+										<UserAvatar data={item.user} />
+										<p className="ml-20 mt-0">{item.content}</p>
+									</Fragment>
+								))}
 						</CardContent>
 					</Card>
 				))}

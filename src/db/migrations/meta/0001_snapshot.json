@@ -1,6 +1,6 @@
 {
-  "id": "01947f78-0f21-4787-99e3-67e31faa4fe8",
-  "prevId": "197edf39-e6f9-46f2-b421-eef9322be44e",
+  "id": "7d210200-8db9-43a3-8196-1996cc588e0c",
+  "prevId": "1683392c-4c46-4de4-b860-b3c3a048e07a",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -50,12 +50,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "parent_root_id": {
-          "name": "parent_root_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
         "user_id": {
           "name": "user_id",
           "type": "integer",
@@ -91,19 +85,6 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "comment_user_id_user_id_fk": {
-          "name": "comment_user_id_user_id_fk",
-          "tableFrom": "comment",
-          "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
         "comment_parent_id_comment_id_fk": {
           "name": "comment_parent_id_comment_id_fk",
           "tableFrom": "comment",
@@ -117,12 +98,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "comment_parent_root_id_comment_id_fk": {
-          "name": "comment_parent_root_id_comment_id_fk",
+        "comment_user_id_user_id_fk": {
+          "name": "comment_user_id_user_id_fk",
           "tableFrom": "comment",
-          "tableTo": "comment",
+          "tableTo": "user",
           "columnsFrom": [
-            "parent_root_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -310,14 +291,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "email": {
-          "name": "email",
+        "fullName": {
+          "name": "fullName",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -346,15 +321,7 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "user_email_unique": {
-          "name": "user_email_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
-        }
-      }
+      "uniqueConstraints": {}
     }
   },
   "enums": {},
