@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { UserForm } from "@/app/(admin)/admin/_components/user-form";
-import { getCurrentUser } from "@/app/services";
+import { UserForm } from "@/app/_components/user-form";
 
 export default async function Page() {
 	const currentUserData = await getCurrentUser();

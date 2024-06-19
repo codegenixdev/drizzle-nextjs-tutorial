@@ -2,8 +2,7 @@ import { notFound } from "next/navigation";
 
 import { getPostById } from "@/app/(admin)/admin/posts/[id]/_queries/get-user-by-id";
 import { PostForm } from "@/app/(admin)/admin/posts/_components/post-form";
-import { getCategories } from "@/app/_queries/get-categories";
-import { getTags } from "@/app/_queries/get-tags";
+import { getCategories, getTags } from "@/app/queries";
 import { getCurrentUser } from "@/app/services";
 
 type Props = { params: { id: string } };

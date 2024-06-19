@@ -12,15 +12,14 @@ import {
 import { SelectPostModel } from "@/db/schema";
 
 type Props = {
-	data: Pick<
-		SelectPostModel,
-		"id" | "title" | "updatedAt" | "shortDescription"
-	>[];
+	data:
+		| Pick<SelectPostModel, "id" | "title" | "updatedAt" | "shortDescription">[]
+		| null;
 };
 export function PostCards({ data }: Props) {
 	return (
 		<div className="flex gap-3 flex-wrap">
-			{data.map((post) => (
+			{(data || []).map((post) => (
 				<Card className="w-72 h-72" key={post.id}>
 					<div>
 						<CardHeader>

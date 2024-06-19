@@ -1,4 +1,4 @@
-import { UserForm } from "@/app/(admin)/admin/_components/user-form";
+import { UserForm } from "@/app/_components/user-form";
 
 export default function Page() {
 	return (

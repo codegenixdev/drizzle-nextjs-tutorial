@@ -2,7 +2,7 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { createComment } from "@/app/(public)/posts/[id]/_actions/create-comment";
+import { createComment } from "@/app/(public)/posts/[id]/actions";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -18,14 +18,13 @@ import { CommentSchema, commentSchema } from "@/db/schema/comment";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = { defaultValues: CommentSchema };
-export function CommentReply({ defaultValues }: Props) {
+export function CommentReplyForm({ defaultValues }: Props) {
 	const form = useForm<CommentSchema>({
 		resolver: zodResolver(commentSchema),
 		defaultValues,
 	});
 
 	const onSubmit: SubmitHandler<CommentSchema> = async (data) => {
-		console.log(data);
 		const response = await createComment(data);
 		toast({
 			title: response.message,

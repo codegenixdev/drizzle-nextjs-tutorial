@@ -1,38 +1,25 @@
-import { eq } from "drizzle-orm";
 import parse from "html-react-parser";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { CommentReply } from "@/app/(public)/posts/[id]/_components/comment-reply";
+import { PostCards } from "@/app/(public)/_components/post-cards";
+import { CommentReplyForm } from "@/app/(public)/posts/[id]/_components/comment-reply-form";
+import { getPostById } from "@/app/(public)/posts/[id]/queries";
+import { UserAvatar } from "@/app/_components/user-avatar";
+import { getRelatedPostsByCategoryId } from "@/app/queries";
 import { auth } from "@/auth";
-import { PostCards } from "@/components/post-cards";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { UserAvatar } from "@/components/user-avatar";
-import { db } from "@/db";
-import { post, user } from "@/db/schema";
 
 type Props = { params: { id: string } };
 export default async function Page(props: Props) {
 	const session = await auth();
 
-	const postData = await db.query.post.findFirst({
-		where: eq(post.id, +props.params.id),
-		with: {
-			category: true,
-			user: {
-				columns: { id: true, fullName: true },
-			},
-			comments: { with: { user: true } },
-		},
-	});
-
+	const postData = await getPostById(+props.params.id);
 	if (!postData) notFound();
 
-	const relatedPosts = await db.query.post.findMany({
-		limit: 4,
-		where: eq(post.categoryId, postData.categoryId),
-		columns: { id: true, title: true, updatedAt: true, shortDescription: true },
-	});
+	const relatedPostsData = await getRelatedPostsByCategoryId(
+		postData.categoryId
+	);
 
 	return (
 		<main className="flex flex-col gap-3">
@@ -50,10 +37,10 @@ export default async function Page(props: Props) {
 				{parse(postData.content)}
 			</article>
 			{!!session?.user?.id && (
-				<CommentReply
+				<CommentReplyForm
 					defaultValues={{
 						postId: postData.id,
-						userId: session.user.id,
+						userId: +session.user.id,
 						content: "",
 						parentId: null,
 					}}
@@ -68,11 +55,11 @@ export default async function Page(props: Props) {
 						</CardHeader>
 						<CardContent className="space-y-3">
 							<p className="mb-3">{comment.content}</p>
-							{!!currentUserData && (
-								<CommentReply
+							{!!session?.user?.id && (
+								<CommentReplyForm
 									defaultValues={{
 										postId: postData.id,
-										userId: currentUserData.id,
+										userId: +session.user.id,
 										content: "",
 										parentId: comment.id,
 									}}
@@ -92,7 +79,7 @@ export default async function Page(props: Props) {
 					</Card>
 				))}
 			<h1 className="text-2xl font-bold py-5">Related Posts</h1>
-			<PostCards data={relatedPosts} />
+			<PostCards data={relatedPostsData} />
 		</main>
 	);
 }

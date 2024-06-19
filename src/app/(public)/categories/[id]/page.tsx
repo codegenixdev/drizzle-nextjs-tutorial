@@ -1,38 +1,22 @@
-import { count, eq } from "drizzle-orm";
-
+import { PostCards } from "@/app/(public)/_components/post-cards";
+import {
+	getCategoryPostsCount,
+	getPostsByCategoryId,
+} from "@/app/(public)/categories/[id]/queries";
 import { Pagination } from "@/components/pagination";
-import { PostCards } from "@/components/post-cards";
-import { limit } from "@/constants";
-import { db } from "@/db";
-import { post } from "@/db/schema";
 
 type Props = { params: { id: string }; searchParams: { page?: string } };
 
 export default async function Page(props: Props) {
+	const limit = 8;
 	const page = Number(props.searchParams.page) - 1 || 0;
 
-	const offset = page * limit;
-
 	const [categoryPostsCount, categoryPostsData] = await Promise.all([
-		db
-			.select({ count: count() })
-			.from(post)
-			.where(eq(post.categoryId, +props.params.id)),
-
-		db
-			.select({
-				id: post.id,
-				title: post.title,
-				shortDescription: post.shortDescription,
-				updatedAt: post.updatedAt,
-			})
-			.from(post)
-			.offset(offset)
-			.limit(limit)
-			.where(eq(post.categoryId, +props.params.id)),
+		getCategoryPostsCount(+props.params.id),
+		getPostsByCategoryId(page, limit, +props.params.id),
 	]);
 
-	const pagesCount = Math.ceil(categoryPostsCount[0].count / limit);
+	const pagesCount = Math.ceil(categoryPostsCount || 0 / limit);
 
 	return (
 		<>

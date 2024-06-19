@@ -1,9 +1,9 @@
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 
+import { UserAvatar } from "@/app/_components/user-avatar";
 import { auth, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
-import { UserAvatar } from "@/components/user-avatar";
 
 export default async function AuthUserAvatar() {
 	const session = await auth();

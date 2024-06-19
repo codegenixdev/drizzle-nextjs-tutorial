@@ -1,15 +1,12 @@
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 
-import { PostCards } from "@/components/post-cards";
+import { PostCards } from "@/app/(public)/_components/post-cards";
+import { getLatestPosts } from "@/app/queries";
 import { Button } from "@/components/ui/button";
-import { db } from "@/db";
 
 export default async function Page() {
-	const latestPostsData = await db.query.post.findMany({
-		limit: 4,
-		columns: { id: true, title: true, updatedAt: true, shortDescription: true },
-	});
+	const latestPostsData = await getLatestPosts();
 
 	return (
 		<main>
