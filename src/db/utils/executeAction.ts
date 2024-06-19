@@ -1,42 +1,41 @@
 import { isRedirectError } from "next/dist/client/components/redirect";
 
 import { auth } from "@/auth";
-
-type ActionFn<T> = {
-	(...args: any[]): Promise<T>;
-};
+import { getErrorMessage } from "@/lib/utils";
 
 type Options<T> = {
-	actionFn: ActionFn<T>;
+	actionFn: {
+		(): Promise<T>;
+	};
 	isProtected?: boolean;
-	errorMessage?: string;
-	successMessage?: string;
+	serverErrorMessage?: string;
+	clientSuccessMessage?: string;
 };
 
 export async function executeAction<T>({
 	actionFn,
 	isProtected = true,
-	errorMessage = "Error executing action",
-	successMessage = "Success executing action",
+	serverErrorMessage = "Error executing action",
+	clientSuccessMessage = "Operation was successful",
 }: Options<T>): Promise<{ success: boolean; message: string }> {
 	try {
 		if (isProtected) {
 			const session = await auth();
-			if (!session) throw new Error("You are not authorized");
+			if (!session) throw new Error("Not authorized");
 		}
 		await actionFn();
 		return {
 			success: true,
-			message: successMessage,
+			message: clientSuccessMessage,
 		};
 	} catch (error) {
 		if (isRedirectError(error)) {
 			throw error;
 		}
-		console.error(errorMessage, error);
+		console.error(serverErrorMessage, error);
 		return {
 			success: false,
-			message: errorMessage,
+			message: getErrorMessage(error),
 		};
 	}
 }

@@ -14,6 +14,7 @@ export async function createComment(data: CommentSchema) {
 			revalidatePath(`/posts/${validatedData.id}`);
 		},
 		isProtected: true,
-		successMessage: "Comment created successfully",
+		clientSuccessMessage: "Comment created successfully",
+		serverErrorMessage: "createComment",
 	});
 }

@@ -15,6 +15,7 @@ export async function deletePostById(id: number) {
 			revalidatePath("/admin/posts");
 		},
 		isProtected: true,
-		successMessage: "Post deleted successfully",
+		clientSuccessMessage: "Post deleted successfully",
+		serverErrorMessage: "deletePostById",
 	});
 }

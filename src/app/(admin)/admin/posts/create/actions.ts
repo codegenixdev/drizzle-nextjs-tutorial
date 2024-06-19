@@ -26,7 +26,8 @@ export async function createPost(data: PostSchema) {
 			revalidatePath("/admin/posts");
 		},
 		isProtected: true,
-		successMessage: "Post created successfully",
+		clientSuccessMessage: "Post created successfully",
+		serverErrorMessage: "createPost",
 	});
 }
 
@@ -56,6 +57,7 @@ export async function editPost(data: PostSchema) {
 			revalidatePath("/admin/posts");
 		},
 		isProtected: true,
-		successMessage: "Post edited successfully",
+		clientSuccessMessage: "Post edited successfully",
+		serverErrorMessage: "editPost",
 	});
 }

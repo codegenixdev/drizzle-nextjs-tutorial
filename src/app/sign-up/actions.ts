@@ -16,7 +16,7 @@ export async function signUp(data: UserSchema) {
 			}
 		},
 		isProtected: false,
-		successMessage: "Signed up successfully",
-		errorMessage: "Sign up failed",
+		clientSuccessMessage: "Signed up successfully",
+		serverErrorMessage: "signUp",
 	});
 }

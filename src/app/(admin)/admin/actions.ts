@@ -17,5 +17,7 @@ export async function updateUser(data: UserSchema) {
 			}
 		},
 		isProtected: true,
+		clientSuccessMessage: "User updated successfully",
+		serverErrorMessage: "updateUser",
 	});
 }

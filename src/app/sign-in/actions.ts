@@ -11,7 +11,7 @@ export async function signIn(data: UserSchema) {
 			await authSignIn("credentials", { ...validatedData, redirectTo: "/" });
 		},
 		isProtected: false,
-		successMessage: "Signed in successfully",
-		errorMessage: "Sign in failed",
+		clientSuccessMessage: "Signed in successfully",
+		serverErrorMessage: "signIn",
 	});
 }

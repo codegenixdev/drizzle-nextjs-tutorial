@@ -1,11 +1,9 @@
 import { auth } from "@/auth";
 
-type QueryFn<T> = {
-	(): Promise<T>;
-};
-
 type Options<T> = {
-	queryFn: QueryFn<T>;
+	queryFn: {
+		(): Promise<T>;
+	};
 	serverErrorMessage?: string;
 	isProtected?: boolean;
 };
@@ -18,7 +16,7 @@ export async function executeQuery<T>({
 	try {
 		if (isProtected) {
 			const session = await auth();
-			if (!session) throw new Error("User is not authorized");
+			if (!session) throw new Error("Not authorized");
 		}
 		return await queryFn();
 	} catch (error) {
