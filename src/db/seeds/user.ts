@@ -9,8 +9,9 @@ const mock = () => {
 	for (let i = 0; i < 20; i++) {
 		data.push({
 			fullName: faker.person.fullName(),
-			password: faker.internet.password(),
+			password: faker.internet.password({ memorable: true, length: 4 }),
 			age: faker.number.int({ min: 18, max: 99 }),
+			email: faker.internet.email(),
 		});
 	}
 

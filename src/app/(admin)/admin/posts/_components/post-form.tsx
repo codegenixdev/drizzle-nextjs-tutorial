@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { createPost } from "@/app/(admin)/admin/posts/create/_actions/create-post";
+import { editPost } from "@/app/(admin)/admin/posts/create/_actions/edit-post";
 import { Input } from "@/components/form-controllers/input";
 import SelectBox from "@/components/form-controllers/select-box";
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,12 @@ export function PostForm({ defaultValues, categoriesData, tagsData }: Props) {
 	});
 
 	const onSubmit: SubmitHandler<PostSchema> = async (data) => {
-		const response = await createPost(data);
+		let response;
+		if (!data.id) {
+			response = await createPost(data);
+		} else {
+			response = await editPost(data);
+		}
 		toast({
 			title: response.message,
 			variant: response.success === true ? "default" : "destructive",

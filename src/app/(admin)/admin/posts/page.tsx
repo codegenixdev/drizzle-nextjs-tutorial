@@ -35,8 +35,6 @@ export default async function Page(props: Props) {
 
 	const pagesCount = Math.ceil(postsCount / limit);
 
-	const obj = { age: 12, firstName: "firstName" };
-
 	return (
 		<main className="space-y-3">
 			<h1 className="text-2xl">Posts</h1>

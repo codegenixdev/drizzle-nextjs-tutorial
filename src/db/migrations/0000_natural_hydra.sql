@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS "post_to_tag" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "tag" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"name" varchar(255) NOT NULL
+	"name" varchar(255) NOT NULL,
+	CONSTRAINT "tag_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"fullName" varchar(255) NOT NULL,
 	"age" integer NOT NULL,
 	"password" varchar(255) NOT NULL,
+	"email" varchar(255) NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );

@@ -20,12 +20,12 @@ export default async function Page() {
 				categoriesData={categoriesData}
 				tagsData={tagsData}
 				defaultValues={{
+					title: "",
+					shortDescription: "",
+					userId: currentUserData?.id,
 					categoryId: categoriesData[0].id,
 					content: "",
 					tagIds: [],
-					title: "",
-					userId: currentUserData?.id,
-					shortDescription: "",
 				}}
 			/>
 		</main>

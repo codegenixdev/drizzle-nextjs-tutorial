@@ -2,7 +2,6 @@ import { InferSelectModel, relations } from "drizzle-orm";
 import {
 	integer,
 	pgTable,
-	primaryKey,
 	serial,
 	text,
 	timestamp,
@@ -46,11 +45,20 @@ export const postSchema = createInsertSchema(post, {
 	shortDescription: (schema) => schema.shortDescription.min(1).max(255),
 	userId: (schema) => schema.userId.min(1),
 	categoryId: (schema) => schema.categoryId.min(1),
-}).and(
-	z.object({
-		tagIds: z.array(z.number()).min(1),
+})
+	.pick({
+		title: true,
+		shortDescription: true,
+		userId: true,
+		categoryId: true,
+		content: true,
+		id: true,
 	})
-);
+	.and(
+		z.object({
+			tagIds: z.array(z.number()).min(1),
+		})
+	);
 
 export type PostSchema = z.infer<typeof postSchema>;
 export type SelectPostModel = InferSelectModel<typeof post>;

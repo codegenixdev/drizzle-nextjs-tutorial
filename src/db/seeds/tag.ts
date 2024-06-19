@@ -8,7 +8,7 @@ const mock = () => {
 
 	for (let i = 0; i < 5; i++) {
 		data.push({
-			name: faker.hacker.adjective(),
+			name: faker.lorem.word(),
 		});
 	}
 

@@ -2,8 +2,9 @@ import { eq } from "drizzle-orm";
 import parse from "html-react-parser";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Fragment } from "react";
 
+import { CommentReply } from "@/app/(public)/posts/[id]/_components/comment-reply";
+import { getCurrentUser } from "@/app/services";
 import { PostCards } from "@/components/post-cards";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { UserAvatar } from "@/components/user-avatar";
@@ -12,6 +13,8 @@ import { post, user } from "@/db/schema";
 
 type Props = { params: { id: string } };
 export default async function Page(props: Props) {
+	const currentUserData = await getCurrentUser();
+
 	const postData = await db.query.post.findFirst({
 		where: eq(post.id, +props.params.id),
 		with: {
@@ -33,9 +36,7 @@ export default async function Page(props: Props) {
 
 	return (
 		<main className="flex flex-col gap-3">
-			<pre></pre>
 			<h1 className="text-2xl font-bold">{postData.title}</h1>
-
 			<div className="flex items-center gap-5">
 				<UserAvatar data={postData.user} />
 				{!!postData.categoryId && (
@@ -45,10 +46,19 @@ export default async function Page(props: Props) {
 				)}
 				<p>{new Date(postData.updatedAt).toDateString()}</p>
 			</div>
-
 			<article className="container max-w-2xl">
 				{parse(postData.content)}
 			</article>
+			{!!currentUserData && (
+				<CommentReply
+					defaultValues={{
+						postId: postData.id,
+						userId: currentUserData.id,
+						content: "",
+						parentId: null,
+					}}
+				/>
+			)}
 			{postData.comments
 				.filter((comment) => !comment.parentId)
 				.map((comment) => (
@@ -56,20 +66,31 @@ export default async function Page(props: Props) {
 						<CardHeader>
 							<UserAvatar data={comment.user} />
 						</CardHeader>
-						<CardContent>
+						<CardContent className="space-y-3">
 							<p className="mb-3">{comment.content}</p>
-							{postData.comments
-								.filter((item) => comment.id === item.parentId)
-								.map((item) => (
-									<Fragment key={item.id}>
-										<UserAvatar data={item.user} />
-										<p className="ml-20 mt-0">{item.content}</p>
-									</Fragment>
-								))}
+							{!!currentUserData && (
+								<CommentReply
+									defaultValues={{
+										postId: postData.id,
+										userId: currentUserData.id,
+										content: "",
+										parentId: comment.id,
+									}}
+								/>
+							)}
+							<div className="space-y-3">
+								{postData.comments
+									.filter((item) => comment.id === item.parentId)
+									.map((item) => (
+										<div key={item.id}>
+											<UserAvatar data={item.user} />
+											<p className="ml-20 mt-0">{item.content}</p>
+										</div>
+									))}
+							</div>
 						</CardContent>
 					</Card>
 				))}
-
 			<h1 className="text-2xl font-bold py-5">Related Posts</h1>
 			<PostCards data={relatedPosts} />
 		</main>

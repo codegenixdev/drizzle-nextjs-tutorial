@@ -16,6 +16,7 @@ export const user = pgTable("user", {
 	fullName: varchar("fullName", { length: 255 }).notNull(),
 	age: integer("age").notNull(),
 	password: varchar("password", { length: 255 }).notNull(),
+	email: varchar("email", { length: 255 }).notNull(),
 	createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
 	updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });
@@ -29,7 +30,8 @@ export const userSchema = createInsertSchema(user, {
 	fullName: (schema) => schema.fullName.min(1),
 	password: (schema) => schema.password.min(1),
 	age: z.coerce.number().min(18).max(99),
-});
+	email: (schema) => schema.email.min(1),
+}).pick({ fullName: true, password: true, age: true, email: true });
 
 export type UserSchema = z.infer<typeof userSchema>;
 

@@ -26,7 +26,20 @@ export const comment = pgTable("comment", {
 	updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });
 
-export const commentRelations = relations(comment, ({ one, many }) => ({
+export const commentSchema = createInsertSchema(comment, {
+	postId: (schema) => schema.postId.min(1),
+	content: (schema) => schema.content.min(1),
+	userId: (schema) => schema.userId.min(1),
+}).pick({
+	postId: true,
+	content: true,
+	parentId: true,
+	userId: true,
+	id: true,
+});
+export type CommentSchema = z.infer<typeof commentSchema>;
+
+export const commentRelations = relations(comment, ({ one }) => ({
 	user: one(user, {
 		fields: [comment.userId],
 		references: [user.id],
@@ -36,6 +49,3 @@ export const commentRelations = relations(comment, ({ one, many }) => ({
 		references: [post.id],
 	}),
 }));
-
-export const insertCommentSchema = createInsertSchema(comment);
-export type InsertCommentSchema = z.infer<typeof insertCommentSchema>;

@@ -24,8 +24,13 @@ export default async function Page({ params }: Props) {
 				categoriesData={categoriesData}
 				tagsData={tagsData}
 				defaultValues={{
-					...postData,
 					tagIds: postData.tags.map((tag) => tag.tagId),
+					categoryId: postData.categoryId,
+					content: postData.content,
+					title: postData.title,
+					userId: postData.userId,
+					id: postData.id,
+					shortDescription: postData.shortDescription,
 				}}
 			/>
 		</main>

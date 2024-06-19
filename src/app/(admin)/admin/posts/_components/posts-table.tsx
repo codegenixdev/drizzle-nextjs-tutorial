@@ -1,4 +1,3 @@
-import { eq } from "drizzle-orm";
 import { EllipsisVertical, Eye, Pencil } from "lucide-react";
 import Link from "next/link";
 
@@ -18,8 +17,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { db } from "@/db";
-import { post, SelectPostModel } from "@/db/schema";
+import { SelectPostModel } from "@/db/schema";
 
 type Props = {
 	rows: SelectPostModel[];
@@ -27,11 +25,6 @@ type Props = {
 };
 export async function PostsTable({ rows, columns }: Props) {
 	const categoriesData = await getCategories();
-
-	async function deletePostById(id: number) {
-		"use server";
-		await db.delete(post).where(eq(post.id, id));
-	}
 
 	return (
 		<Table>

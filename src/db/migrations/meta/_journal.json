@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1718614741933,
-      "tag": "0000_boring_juggernaut",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1718636497040,
-      "tag": "0001_free_mimic",
+      "when": 1718771082274,
+      "tag": "0000_natural_hydra",
       "breakpoints": true
     }
   ]
