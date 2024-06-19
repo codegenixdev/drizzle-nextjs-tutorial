@@ -13,11 +13,12 @@ type Props<TFieldValues extends FieldValues> = {
 	control: Control<TFieldValues>;
 	name: Path<TFieldValues>;
 	label: string;
-};
+} & React.InputHTMLAttributes<HTMLInputElement>;
 export function Input<TFieldValues extends FieldValues>({
 	control,
 	name,
 	label,
+	...props
 }: Props<TFieldValues>) {
 	return (
 		<FormField
@@ -27,7 +28,7 @@ export function Input<TFieldValues extends FieldValues>({
 				<FormItem>
 					<FormLabel>{label}</FormLabel>
 					<FormControl>
-						<RawInput {...field} />
+						<RawInput {...props} {...field} />
 					</FormControl>
 					<FormMessage />
 				</FormItem>

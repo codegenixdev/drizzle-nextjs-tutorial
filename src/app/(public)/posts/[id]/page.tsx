@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CommentReply } from "@/app/(public)/posts/[id]/_components/comment-reply";
-import { getCurrentUser } from "@/app/services";
+import { auth } from "@/auth";
 import { PostCards } from "@/components/post-cards";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { UserAvatar } from "@/components/user-avatar";
@@ -13,7 +13,7 @@ import { post, user } from "@/db/schema";
 
 type Props = { params: { id: string } };
 export default async function Page(props: Props) {
-	const currentUserData = await getCurrentUser();
+	const session = await auth();
 
 	const postData = await db.query.post.findFirst({
 		where: eq(post.id, +props.params.id),
@@ -49,11 +49,11 @@ export default async function Page(props: Props) {
 			<article className="container max-w-2xl">
 				{parse(postData.content)}
 			</article>
-			{!!currentUserData && (
+			{!!session?.user?.id && (
 				<CommentReply
 					defaultValues={{
 						postId: postData.id,
-						userId: currentUserData.id,
+						userId: session.user.id,
 						content: "",
 						parentId: null,
 					}}

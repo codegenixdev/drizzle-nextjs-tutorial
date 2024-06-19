@@ -1,5 +1,5 @@
 import { db, DBType } from "@/db";
-import { InsertPostSchema, post } from "@/db/schema/post";
+import { post, PostSchema } from "@/db/schema/post";
 import { faker } from "@faker-js/faker";
 
 const mock = async () => {
@@ -8,7 +8,7 @@ const mock = async () => {
 		db.query.category.findMany(),
 	]);
 
-	const data: InsertPostSchema[] = [];
+	const data: Omit<PostSchema, "tagIds">[] = [];
 
 	for (let i = 0; i < 100; i++) {
 		data.push({

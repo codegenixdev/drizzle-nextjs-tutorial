@@ -53,6 +53,7 @@
 		"@faker-js/faker": "^8.4.1",
 		"@tailwindcss/line-clamp": "^0.4.4",
 		"@types/bcrypt": "^5.0.2",
+		"@types/lodash": "^4.17.5",
 		"@types/node": "^20.14.1",
 		"@types/pg": "^8.11.6",
 		"@types/react": "^18.3.1",

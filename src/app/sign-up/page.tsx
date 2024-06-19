@@ -4,8 +4,10 @@ export default function Page() {
 	return (
 		<UserForm
 			defaultValues={{
-				mode: "signIn",
+				mode: "signUp",
+				age: 18,
 				email: "",
+				fullName: "",
 				password: "",
 			}}
 		/>

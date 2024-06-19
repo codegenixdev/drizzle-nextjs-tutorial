@@ -5,10 +5,9 @@ import { Inter } from "next/font/google";
 import Link from "next/link";
 
 import { getCategories } from "@/app/_queries/get-categories";
-import { getCurrentUser } from "@/app/services";
+import AuthUserAvatar from "@/components/auth-user-avatar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
-import { UserAvatar } from "@/components/user-avatar";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,8 +23,6 @@ export default async function Layout({
 	children: React.ReactNode;
 }>) {
 	const categoriesData = await getCategories();
-
-	const currentUserData = await getCurrentUser();
 
 	return (
 		<html lang="en">
@@ -49,7 +46,7 @@ export default async function Layout({
 								</Button>
 							))}
 						</div>
-						<UserAvatar data={currentUserData} href="/admin" />
+						<AuthUserAvatar />
 					</nav>
 					{children}
 				</ThemeProvider>

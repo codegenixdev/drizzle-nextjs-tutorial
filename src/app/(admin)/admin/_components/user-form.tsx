@@ -1,18 +1,14 @@
 "use client";
 
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 
 import { updateUser } from "@/app/(admin)/admin/_actions/update-user";
+import { signIn } from "@/app/sign-in/_actions/sign-in";
+import { createUser } from "@/app/sign-up/_actions/create-user";
+import { Input } from "@/components/form-controllers/input";
 import { Button } from "@/components/ui/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
 import { UserSchema, userSchema } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,61 +17,65 @@ type Props = {
 	defaultValues: UserSchema;
 };
 export function UserForm({ defaultValues }: Props) {
+	const router = useRouter();
+
 	const form = useForm<UserSchema>({
 		resolver: zodResolver(userSchema),
 		defaultValues,
 	});
 
+	const mode = useWatch({ control: form.control, name: "mode" });
+
 	const onSubmit: SubmitHandler<UserSchema> = async (data) => {
-		const response = await updateUser(data);
-		toast({
-			title: response.message,
-			variant: response.success === true ? "default" : "destructive",
-		});
+		let response;
+		if (data.mode === "update") {
+			response = await updateUser(data);
+		} else if (data.mode === "signUp") {
+			response = await createUser(data);
+			router.push("/sign-in");
+		} else {
+			response = await signIn(data);
+		}
+		if (response) {
+			toast({
+				title: response.message,
+				variant: response.success === true ? "default" : "destructive",
+			});
+		}
 	};
 
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-				<FormField
-					control={form.control}
-					name="fullName"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Full Name</FormLabel>
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="password"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Password</FormLabel>
-							<FormControl>
-								<Input type="password" {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="age"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Age</FormLabel>
-							<FormControl>
-								<Input type="number" {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+				{(mode === "signUp" || mode === "update") && (
+					<>
+						<Input control={form.control} name="fullName" label="Full Name" />
+						<Input
+							control={form.control}
+							name="age"
+							label="Age"
+							type="number"
+						/>
+					</>
+				)}
+
+				{(mode === "signUp" || mode === "signIn") && (
+					<>
+						<Input
+							control={form.control}
+							name="email"
+							label="Email"
+							type="email"
+						/>
+						<Input
+							control={form.control}
+							name="password"
+							label="Password"
+							type="password"
+						/>
+					</>
+				)}
+
 				<Button type="submit">Submit</Button>
 			</form>
 		</Form>

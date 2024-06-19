@@ -4,7 +4,7 @@ import { UserSchema } from "@/db/schema/user";
 import { faker } from "@faker-js/faker";
 
 const mock = () => {
-	const data: UserSchema[] = [];
+	const data: Omit<Extract<UserSchema, { mode: "signUp" }>, "mode">[] = [];
 
 	for (let i = 0; i < 20; i++) {
 		data.push({

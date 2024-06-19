@@ -3,14 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
 
-import { getCurrentUser } from "@/app/services";
+import { auth } from "@/auth";
 import { db } from "@/db";
 import { comment, CommentSchema, commentSchema } from "@/db/schema/comment";
 
 export async function createComment(data: CommentSchema) {
-	const currentUserData = await getCurrentUser();
-
-	if (!currentUserData) notFound();
+	const session = await auth();
+	if (!session) notFound();
 
 	const validation = commentSchema.safeParse(data);
 
