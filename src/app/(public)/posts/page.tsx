@@ -13,7 +13,7 @@ export default async function Page(props: Props) {
 		getPosts(page, limit),
 	]);
 
-	const pagesCount = Math.ceil(postsCount || 0 / limit);
+	const pagesCount = Math.ceil((postsCount || 0) / limit);
 
 	return (
 		<main>

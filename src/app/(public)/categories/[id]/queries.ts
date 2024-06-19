@@ -13,6 +13,7 @@ export async function getCategoryPostsCount(categoryId: number) {
 					.from(post)
 					.where(eq(post.categoryId, categoryId))
 			)[0].count,
+		isProtected: false,
 	});
 }
 
@@ -35,5 +36,6 @@ export async function getPostsByCategoryId(
 				.limit(limit)
 				.where(eq(post.categoryId, categoryId)),
 		serverErrorMessage: "getCategoryPostsCount",
+		isProtected: false,
 	});
 }

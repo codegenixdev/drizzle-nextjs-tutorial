@@ -22,7 +22,7 @@ export default async function Page(props: Props) {
 	);
 
 	return (
-		<main className="flex flex-col gap-3">
+		<main className="flex flex-col gap-3 ">
 			<h1 className="text-2xl font-bold">{postData.title}</h1>
 			<div className="flex items-center gap-5">
 				<UserAvatar data={postData.user} />
@@ -33,7 +33,7 @@ export default async function Page(props: Props) {
 				)}
 				<p>{new Date(postData.updatedAt).toDateString()}</p>
 			</div>
-			<article className="container max-w-2xl">
+			<article className="container max-w-2xl break-words">
 				{parse(postData.content)}
 			</article>
 			{!!session?.user?.id && (

@@ -25,7 +25,7 @@ export default async function Page(props: Props) {
 
 	if (!categoriesData) notFound();
 
-	const pagesCount = Math.ceil(categoryPostsCount || 0 / limit);
+	const pagesCount = Math.ceil((categoryPostsCount || 0) / limit);
 
 	return (
 		<main>

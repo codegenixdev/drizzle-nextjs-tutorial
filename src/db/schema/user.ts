@@ -28,12 +28,11 @@ export const userRelations = relations(user, ({ many }) => ({
 export type SelectUserModel = InferSelectModel<typeof user>;
 
 const baseSchema = createInsertSchema(user, {
-	id: (schema) => schema.id.min(1),
 	fullName: (schema) => schema.fullName.min(1),
 	password: (schema) => schema.password.min(1),
 	age: z.coerce.number().min(18).max(99),
 	email: (schema) => schema.email.email(),
-}).pick({ id: true, fullName: true, password: true, age: true, email: true });
+}).pick({ fullName: true, password: true, age: true, email: true });
 
 export const userSchema = z.union([
 	z.object({
@@ -52,7 +51,7 @@ export const userSchema = z.union([
 		mode: z.literal("update"),
 		fullName: baseSchema.shape.fullName,
 		age: baseSchema.shape.age,
-		id: baseSchema.shape.id,
+		id: z.number().min(1),
 	}),
 ]);
 

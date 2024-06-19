@@ -18,5 +18,6 @@ export async function getPostById(id: number) {
 				},
 			}),
 		serverErrorMessage: "getPostById",
+		isProtected: false,
 	});
 }

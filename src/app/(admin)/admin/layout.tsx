@@ -10,7 +10,7 @@ export default async function Layout({
 	children: React.ReactNode;
 }>) {
 	const session = await auth();
-	if (session) notFound();
+	if (!session) notFound();
 
 	return (
 		<div className="space-y-3">

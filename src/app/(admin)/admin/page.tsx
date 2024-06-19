@@ -16,6 +16,7 @@ export default async function Page() {
 					mode: "update",
 					age: currentUserData.age,
 					fullName: currentUserData.fullName,
+					id: currentUserData.id,
 				}}
 			/>
 		</main>

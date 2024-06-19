@@ -10,7 +10,7 @@ export default async function Page() {
 	const currentUserData = await getCurrentUser();
 
 	if (!currentUserData) notFound();
-	if (!!categoriesData && categoriesData.length > 0)
+	if (!categoriesData || categoriesData.length === 0)
 		return <>Not categories found</>;
 
 	return (
