@@ -10,22 +10,26 @@ export function Pagination({ page, pagesCount, urlPrefix }: Props) {
 
 	return (
 		<>
-			<br />
-			<div className="flex items-center gap-2">
-				<Button variant="ghost" asChild>
-					<Link href={`${urlPrefix}?page=${previousOffset + 1}`}>
-						<ChevronLeft />
-						Previous
-					</Link>
-				</Button>
-				{page + 1}/{pagesCount}
-				<Button variant="ghost" asChild>
-					<Link href={`${urlPrefix}?page=${nextOffset + 1}`}>
-						<ChevronRight />
-						Next
-					</Link>
-				</Button>
-			</div>
+			{pagesCount !== 0 && (
+				<>
+					<br />
+					<div className="flex items-center gap-2">
+						<Button variant="ghost" asChild>
+							<Link href={`${urlPrefix}?page=${previousOffset + 1}`}>
+								<ChevronLeft />
+								Previous
+							</Link>
+						</Button>
+						{page + 1}/{pagesCount}
+						<Button variant="ghost" asChild>
+							<Link href={`${urlPrefix}?page=${nextOffset + 1}`}>
+								<ChevronRight />
+								Next
+							</Link>
+						</Button>
+					</div>
+				</>
+			)}
 		</>
 	);
 }

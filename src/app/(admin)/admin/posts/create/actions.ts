@@ -2,64 +2,60 @@
 
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { notFound } from "next/navigation";
 
-import { getCurrentUser } from "@/app/services";
 import { db } from "@/db";
 import { post, PostSchema, postSchema, postToTag } from "@/db/schema";
+import { executeAction } from "@/db/utils/executeAction";
 
 export async function createPost(data: PostSchema) {
-	const currentUserData = await getCurrentUser();
+	return executeAction({
+		actionFn: async () => {
+			const validatedData = postSchema.parse(data);
 
-	if (!currentUserData) notFound();
+			const { postId } = (
+				await db
+					.insert(post)
+					.values(validatedData)
+					.returning({ postId: post.id })
+			)[0];
 
-	const validation = postSchema.safeParse(data);
+			await db
+				.insert(postToTag)
+				.values(validatedData.tagIds.map((tagId) => ({ postId, tagId })));
 
-	if (!validation.success) {
-		return {
-			success: false,
-			message: "Invalid data",
-		};
-	}
-
-	const { postId } = (
-		await db.insert(post).values(data).returning({ postId: post.id })
-	)[0];
-
-	await db
-		.insert(postToTag)
-		.values(data.tagIds.map((tagId) => ({ postId, tagId })));
-
-	revalidatePath("/admin/posts");
-
-	return { success: true, message: "Post created successfully." };
+			revalidatePath("/admin/posts");
+		},
+		isProtected: true,
+		successMessage: "Post created successfully",
+	});
 }
 
 export async function editPost(data: PostSchema) {
-	const currentUserData = await getCurrentUser();
+	return executeAction({
+		actionFn: async () => {
+			const validatedData = postSchema.parse(data);
 
-	if (!currentUserData) notFound();
+			if (data.id) {
+				await db
+					.update(post)
+					.set(validatedData)
+					.where(eq(post.id, +validatedData.id));
 
-	const validation = postSchema.safeParse(data);
+				await db
+					.delete(postToTag)
+					.where(eq(postToTag.postId, +validatedData.id));
 
-	if (!validation.success) {
-		return {
-			success: false,
-			message: "Invalid data",
-		};
-	}
+				await db.insert(postToTag).values(
+					validatedData.tagIds.map((tagId) => ({
+						postId: validatedData.id!,
+						tagId,
+					}))
+				);
+			}
 
-	if (data.id) {
-		await db.update(post).set(data).where(eq(post.id, data.id));
-
-		await db.delete(postToTag).where(eq(postToTag.postId, data.id));
-
-		await db
-			.insert(postToTag)
-			.values(data.tagIds.map((tagId) => ({ postId: data.id!, tagId })));
-	}
-
-	revalidatePath("/admin/posts");
-
-	return { success: true, message: "Post edited successfully." };
+			revalidatePath("/admin/posts");
+		},
+		isProtected: true,
+		successMessage: "Post edited successfully",
+	});
 }

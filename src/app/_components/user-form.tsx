@@ -3,9 +3,9 @@
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 
-import { updateUser } from "@/app/(admin)/admin/_actions/update-user";
-import { signIn } from "@/app/sign-in/_actions/sign-in";
-import { createUser } from "@/app/sign-up/_actions/create-user";
+import { updateUser } from "@/app/(admin)/admin/actions";
+import { signIn } from "@/app/sign-in/actions";
+import { signUp } from "@/app/sign-up/actions";
 import { Input } from "@/components/form-controllers/input";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -31,8 +31,7 @@ export function UserForm({ defaultValues }: Props) {
 		if (data.mode === "update") {
 			response = await updateUser(data);
 		} else if (data.mode === "signUp") {
-			response = await createUser(data);
-			router.push("/sign-in");
+			response = await signUp(data);
 		} else {
 			response = await signIn(data);
 		}

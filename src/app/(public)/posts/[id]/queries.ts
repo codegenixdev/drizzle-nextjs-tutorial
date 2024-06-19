@@ -17,6 +17,6 @@ export async function getPostById(id: number) {
 					comments: { with: { user: true } },
 				},
 			}),
-		errorMessage: "Error fetching post",
+		serverErrorMessage: "getPostById",
 	});
 }

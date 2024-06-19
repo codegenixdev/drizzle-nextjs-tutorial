@@ -17,6 +17,7 @@ export default async function Page(props: Props) {
 
 	return (
 		<main>
+			<h1 className="text-2xl font-bold py-5">All Posts</h1>
 			<PostCards data={postsData} />
 			<Pagination page={page} pagesCount={pagesCount} urlPrefix="/posts" />
 		</main>

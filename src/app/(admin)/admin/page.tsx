@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { getCurrentUser } from "@/app/(admin)/admin/queries";
 import { UserForm } from "@/app/_components/user-form";
 
 export default async function Page() {

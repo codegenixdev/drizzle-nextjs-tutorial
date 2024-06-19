@@ -27,10 +27,12 @@ import { cn } from "@/lib/utils";
 type Props<TFieldValues extends FieldValues> = {
 	control: Control<TFieldValues>;
 	name: Path<TFieldValues>;
-	options: {
-		name: string;
-		id: PathValue<TFieldValues, Path<TFieldValues>>;
-	}[];
+	options:
+		| {
+				name: string;
+				id: PathValue<TFieldValues, Path<TFieldValues>>;
+		  }[]
+		| null;
 	multiple?: boolean;
 	label: string;
 };
@@ -92,7 +94,7 @@ const SelectBox = <TFieldValues extends FieldValues>({
 								>
 									{(value && value.length > 0) || typeof value === "number" ? (
 										multiple ? (
-											options
+											(options || [])
 												.filter(
 													(option) =>
 														Array.isArray(value) && value.includes(option.id)
@@ -115,7 +117,7 @@ const SelectBox = <TFieldValues extends FieldValues>({
 													</span>
 												))
 										) : (
-											options.find((opt) => opt.id === value)?.name
+											(options || []).find((opt) => opt.id === value)?.name
 										)
 									) : (
 										<span className="mr-auto text-muted-foreground">
@@ -167,7 +169,7 @@ const SelectBox = <TFieldValues extends FieldValues>({
 									<CommandGroup>
 										<ScrollArea>
 											<div className="max-h-64">
-												{options.map((option) => {
+												{(options || []).map((option) => {
 													const isSelected =
 														Array.isArray(value) && value.includes(option.id);
 													return (

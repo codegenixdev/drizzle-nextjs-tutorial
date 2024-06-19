@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,7 @@ export default async function Layout({
 	children: React.ReactNode;
 }>) {
 	const session = await auth();
-	if (!session?.user) return <>Not authorized</>;
+	if (session) notFound();
 
 	return (
 		<div className="space-y-3">

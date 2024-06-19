@@ -7,14 +7,14 @@ import { executeQuery } from "@/db/utils/executeQuery";
 export async function getCategories() {
 	return executeQuery({
 		queryFn: async () => await db.query.category.findMany(),
-		errorMessage: "Error fetching categories",
+		serverErrorMessage: "getCategories",
 	});
 }
 
 export async function getTags() {
 	return executeQuery({
 		queryFn: async () => await db.query.tag.findMany(),
-		errorMessage: "Error fetching tags",
+		serverErrorMessage: "getTags",
 	});
 }
 
@@ -30,7 +30,8 @@ export async function getLatestPosts() {
 					shortDescription: true,
 				},
 			}),
-		errorMessage: "Error fetching latest posts",
+		serverErrorMessage: "getLatestPosts",
+		isProtected: false,
 	});
 }
 
@@ -47,7 +48,7 @@ export async function getRelatedPostsByCategoryId(categoryId: number) {
 					shortDescription: true,
 				},
 			}),
-		errorMessage: "Error fetching latest posts",
+		serverErrorMessage: "getRelatedPostsByCategoryId",
 	});
 }
 
@@ -58,6 +59,7 @@ export async function getPostsCount() {
 				.select({ count: count() })
 				.from(post)
 				.then((res) => res[0].count),
+		serverErrorMessage: "getPostsCount",
 	});
 }
 
@@ -69,5 +71,6 @@ export async function getPosts(page: number, limit: number) {
 				offset: page * limit,
 				orderBy: post.id,
 			}),
+		serverErrorMessage: "getPosts",
 	});
 }

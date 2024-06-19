@@ -12,7 +12,7 @@ import { z } from "zod";
 import { post } from "@/db/schema/post";
 
 export const user = pgTable("user", {
-	id: serial("id").primaryKey(),
+	id: serial("id").notNull().primaryKey(),
 	fullName: varchar("fullName", { length: 255 }).notNull(),
 	age: integer("age").notNull(),
 	password: varchar("password", { length: 255 }).notNull(),
@@ -28,11 +28,12 @@ export const userRelations = relations(user, ({ many }) => ({
 export type SelectUserModel = InferSelectModel<typeof user>;
 
 const baseSchema = createInsertSchema(user, {
+	id: (schema) => schema.id.min(1),
 	fullName: (schema) => schema.fullName.min(1),
 	password: (schema) => schema.password.min(1),
 	age: z.coerce.number().min(18).max(99),
 	email: (schema) => schema.email.email(),
-}).pick({ fullName: true, password: true, age: true, email: true });
+}).pick({ id: true, fullName: true, password: true, age: true, email: true });
 
 export const userSchema = z.union([
 	z.object({
@@ -51,6 +52,7 @@ export const userSchema = z.union([
 		mode: z.literal("update"),
 		fullName: baseSchema.shape.fullName,
 		age: baseSchema.shape.age,
+		id: baseSchema.shape.id,
 	}),
 ]);
 

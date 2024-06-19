@@ -8,15 +8,14 @@ import { executeQuery } from "@/db/utils/executeQuery";
 export async function getCurrentUser() {
 	const session = await auth();
 
-	const sessionUserId = session?.user.id;
+	const sessionUserId = session?.user?.id;
 
-	if (sessionUserId) throw new Error("You are not authorized");
-	current userrrrrrrrrrr session fixx
+	if (!sessionUserId) return null;
 
 	return executeQuery({
 		queryFn: async () =>
-			await db.query.user.findFirst({ where: eq(user.id, session.user.id) }),
-		errorMessage: "Error fetching current user",
+			await db.query.user.findFirst({ where: eq(user.id, +sessionUserId) }),
+		serverErrorMessage: "getCurrentUser",
 		isProtected: false,
 	});
 }

@@ -34,5 +34,6 @@ export async function getPostsByCategoryId(
 				.offset(page * limit)
 				.limit(limit)
 				.where(eq(post.categoryId, categoryId)),
+		serverErrorMessage: "getCategoryPostsCount",
 	});
 }

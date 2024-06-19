@@ -3,8 +3,7 @@
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { createPost } from "@/app/(admin)/admin/posts/create/_actions/create-post";
-import { editPost } from "@/app/(admin)/admin/posts/create/_actions/edit-post";
+import { createPost, editPost } from "@/app/(admin)/admin/posts/create/actions";
 import { Input } from "@/components/form-controllers/input";
 import SelectBox from "@/components/form-controllers/select-box";
 import { Button } from "@/components/ui/button";
@@ -15,8 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {
 	defaultValues: PostSchema;
-	categoriesData: { id: number; name: string }[];
-	tagsData: { id: number; name: string }[];
+	categoriesData: { id: number; name: string }[] | null;
+	tagsData: { id: number; name: string }[] | null;
 };
 export function PostForm({ defaultValues, categoriesData, tagsData }: Props) {
 	const router = useRouter();

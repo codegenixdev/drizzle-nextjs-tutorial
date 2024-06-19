@@ -12,5 +12,6 @@ export async function signIn(data: UserSchema) {
 		},
 		isProtected: false,
 		successMessage: "Signed in successfully",
+		errorMessage: "Sign in failed",
 	});
 }

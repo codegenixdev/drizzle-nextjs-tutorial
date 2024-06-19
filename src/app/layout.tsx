@@ -20,7 +20,7 @@ export default async function Layout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<body className={cn("container max-w-7xl pb-5", inter.className)}>
 				<ThemeProvider
 					attribute="class"

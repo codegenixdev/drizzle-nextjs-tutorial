@@ -1,9 +1,7 @@
-import { and, eq } from "drizzle-orm";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
-import { db } from "@/db";
-import { user, userSchema } from "@/db/schema";
+import { getUserByEmailAndPassword } from "@/app/sign-in/queries";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	providers: [
@@ -13,28 +11,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 				password: {},
 			},
 			authorize: async (credentials) => {
-				const parsedCredentials = await userSchema.parseAsync(credentials);
-
-				if (parsedCredentials.mode === "signIn") {
-					const dbUser = (
-						await db
-							.select()
-							.from(user)
-							.where(
-								and(
-									eq(user.password, parsedCredentials.password),
-									eq(user.email, parsedCredentials.email)
-								)
-							)
-					)[0];
-
-					if (!dbUser) {
-						throw new Error("User not found / Wrong credentials");
-					}
-
-					return { ...dbUser, id: dbUser.id.toString() };
+				const dbUser = await getUserByEmailAndPassword(credentials);
+				if (!dbUser) {
+					throw new Error("User not found / Wrong credentials");
 				}
-				return null;
+
+				return { ...dbUser, id: dbUser.id.toString() };
 			},
 		}),
 	],
@@ -42,12 +24,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 		jwt({ token, user }) {
 			if (user) {
 				token.id = user.id;
+				// @ts-ignore
 				token.fullName = user.fullName;
 			}
 			return token;
 		},
 		session({ session, token }) {
+			// @ts-ignore
 			session.user.id = token.id;
+			// @ts-ignore
 			session.user.fullName = token.fullName;
 			return session;
 		},

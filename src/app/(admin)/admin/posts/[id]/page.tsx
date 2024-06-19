@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 
-import { getPostById } from "@/app/(admin)/admin/posts/[id]/_queries/get-user-by-id";
+import { getPostById } from "@/app/(admin)/admin/posts/[id]/queries";
 import { PostForm } from "@/app/(admin)/admin/posts/_components/post-form";
+import { getCurrentUser } from "@/app/(admin)/admin/queries";
 import { getCategories, getTags } from "@/app/queries";
-import { getCurrentUser } from "@/app/services";
 
 type Props = { params: { id: string } };
 export default async function Page({ params }: Props) {
@@ -13,7 +13,9 @@ export default async function Page({ params }: Props) {
 
 	const postData = await getPostById(+params.id);
 
-	if (!categoriesData || !tagsData || !currentUserData || !postData) notFound();
+	if (!currentUserData || !postData) notFound();
+
+	if (!categoriesData) return <>No categories found</>;
 
 	return (
 		<main className="space-y-3">

@@ -1,14 +1,14 @@
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 
+import { getCurrentUser } from "@/app/(admin)/admin/queries";
 import { UserAvatar } from "@/app/_components/user-avatar";
-import { auth, signOut } from "@/auth";
+import { signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 
 export default async function AuthUserAvatar() {
-	const session = await auth();
-
-	if (!session?.user)
+	const currentUserData = await getCurrentUser();
+	if (!currentUserData)
 		return (
 			<div className="flex items-center">
 				<Button asChild variant="ghost">
@@ -23,7 +23,7 @@ export default async function AuthUserAvatar() {
 	return (
 		<>
 			<UserAvatar
-				data={{ id: session.user.id, fullName: session.user.fullName }}
+				data={{ id: currentUserData.id, fullName: currentUserData.fullName }}
 				href="/admin"
 			/>
 

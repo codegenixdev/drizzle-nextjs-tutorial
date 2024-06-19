@@ -1,7 +1,6 @@
 import { isRedirectError } from "next/dist/client/components/redirect";
 
 import { auth } from "@/auth";
-import { getErrorMessage } from "@/lib/utils";
 
 type ActionFn<T> = {
 	(...args: any[]): Promise<T>;
@@ -37,7 +36,7 @@ export async function executeAction<T>({
 		console.error(errorMessage, error);
 		return {
 			success: false,
-			message: getErrorMessage(error),
+			message: errorMessage,
 		};
 	}
 }

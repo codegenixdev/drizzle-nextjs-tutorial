@@ -1,7 +1,7 @@
 "use client";
 import { Trash } from "lucide-react";
 
-import { deletePostById } from "@/app/(admin)/admin/posts/_actions/delete-post-by-id";
+import { deletePostById } from "@/app/(admin)/admin/posts/actions";
 import { Button } from "@/components/ui/button";
 
 type Props = { id: number };

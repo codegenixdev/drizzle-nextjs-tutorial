@@ -2,7 +2,7 @@ import { EllipsisVertical, Eye, Pencil } from "lucide-react";
 import Link from "next/link";
 
 import { DeletePostButton } from "@/app/(admin)/admin/posts/_components/delete-post-button";
-import { getCategories } from "@/app/_queries/get-categories";
+import { getCategories } from "@/app/queries";
 import { Button } from "@/components/ui/button";
 import {
 	Popover,
@@ -20,11 +20,11 @@ import {
 import { SelectPostModel } from "@/db/schema";
 
 type Props = {
-	rows: SelectPostModel[];
+	rows: SelectPostModel[] | null;
 	columns: string[];
 };
 export async function PostsTable({ rows, columns }: Props) {
-	const categoriesData = await getCategories();
+	const categoriesData = (await getCategories()) || [];
 
 	return (
 		<Table>
@@ -36,7 +36,7 @@ export async function PostsTable({ rows, columns }: Props) {
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				{rows.map((row) => (
+				{(rows || []).map((row) => (
 					<TableRow key={row.id}>
 						<TableCell className="font-medium">{row.id}</TableCell>
 						<TableCell className="font-medium">{row.title}</TableCell>

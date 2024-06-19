@@ -1,30 +1,28 @@
 import { auth } from "@/auth";
 
-type QueryFunction<T> = {
-	(...args: any[]): Promise<T>;
+type QueryFn<T> = {
+	(): Promise<T>;
 };
 
-type ExecuteQueryOptions<T> = {
-	queryFn: QueryFunction<T>;
-	errorMessage?: string;
-	args?: any[];
+type Options<T> = {
+	queryFn: QueryFn<T>;
+	serverErrorMessage?: string;
 	isProtected?: boolean;
 };
 
 export async function executeQuery<T>({
 	queryFn,
-	errorMessage = "Error executing query",
-	args = [],
+	serverErrorMessage = "Error executing query",
 	isProtected = true,
-}: ExecuteQueryOptions<T>): Promise<T | null> {
+}: Options<T>) {
 	try {
 		if (isProtected) {
 			const session = await auth();
-			if (!session) throw new Error("You are not authorized");
+			if (!session) throw new Error("User is not authorized");
 		}
-		return await queryFn(...args);
+		return await queryFn();
 	} catch (error) {
-		console.error(errorMessage, error);
+		console.error(serverErrorMessage, error);
 		return null;
 	}
 }
