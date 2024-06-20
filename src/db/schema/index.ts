@@ -1,9 +1,5 @@
 export { category, categoryRelations } from "@/db/schema/category";
-export {
-	comment,
-	commentRelations,
-	type InsertCommentSchema,
-} from "@/db/schema/comment";
+export { comment, commentRelations } from "@/db/schema/comment";
 export {
 	post,
 	postRelations,

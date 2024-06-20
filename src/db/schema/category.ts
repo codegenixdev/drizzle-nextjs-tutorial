@@ -14,5 +14,5 @@ export const categoryRelations = relations(category, ({ many }) => ({
 	posts: many(post),
 }));
 
-export const insertCategorySchema = createInsertSchema(category);
-export type InsertCategorySchema = z.infer<typeof insertCategorySchema>;
+export const categorySchema = createInsertSchema(category);
+export type CategorySchema = z.infer<typeof categorySchema>;

@@ -1,8 +1,8 @@
 import { DBType } from "@/db";
 import { category } from "@/db/schema";
-import { InsertCategorySchema } from "@/db/schema/category";
+import { CategorySchema } from "@/db/schema/category";
 
-const mock: InsertCategorySchema[] = [
+const mock: CategorySchema[] = [
 	{
 		name: "Node.js",
 	},
