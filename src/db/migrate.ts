@@ -12,14 +12,15 @@ const pool = new Pool({
 const db = drizzle(pool);
 
 async function main() {
-	await migrate(db, { migrationsFolder: config.out! });
+	if (config.out) {
+		await migrate(db, { migrationsFolder: config.out });
+	}
 }
 
 main()
 	.catch((e) => {
 		console.error(e);
-		process.exit(1);
 	})
-	.finally(() => {
-		process.exit();
+	.finally(async () => {
+		await pool.end();
 	});

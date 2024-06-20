@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 export default async function Page() {
 	const latestPostsData = await getLatestPosts();
 
+	now reveiw all db (schema, folder structures...)
+
 	return (
 		<main>
 			<div className="flex items-center justify-between">
