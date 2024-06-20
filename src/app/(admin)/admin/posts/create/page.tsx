@@ -22,6 +22,7 @@ export default async function Page() {
 					categoriesData={categoriesData}
 					tagsData={tagsData}
 					defaultValues={{
+						mode: "create",
 						title: "",
 						shortDescription: "",
 						userId: currentUserData?.id,

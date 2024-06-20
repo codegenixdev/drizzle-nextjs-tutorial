@@ -1,4 +1,4 @@
-import { DBType } from "@/db";
+import { DB } from "@/db";
 import { user } from "@/db/schema";
 import { UserSchema } from "@/db/schema/user";
 import { faker } from "@faker-js/faker";
@@ -18,6 +18,6 @@ const mock = () => {
 	return data;
 };
 
-export async function seed(db: DBType) {
+export async function seed(db: DB) {
 	await db.insert(user).values(mock());
 }

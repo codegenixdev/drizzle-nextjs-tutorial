@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
 
-import { auth } from "@/auth";
 import { db } from "@/db";
 import { user } from "@/db/schema";
 import { executeQuery } from "@/db/utils/executeQuery";
+import { auth } from "@/lib/auth";
 
 export async function getCurrentUser() {
 	const session = await auth();

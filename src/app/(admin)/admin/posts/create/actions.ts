@@ -4,7 +4,8 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/db";
-import { post, PostSchema, postSchema, postToTag } from "@/db/schema";
+import { post, postTags } from "@/db/schema";
+import { PostSchema, postSchema } from "@/db/schema/post";
 import { executeAction } from "@/db/utils/executeAction";
 
 export async function createPost(data: PostSchema) {
@@ -20,7 +21,7 @@ export async function createPost(data: PostSchema) {
 			)[0];
 
 			await db
-				.insert(postToTag)
+				.insert(postTags)
 				.values(validatedData.tagIds.map((tagId) => ({ postId, tagId })));
 
 			revalidatePath("/admin/posts");
@@ -36,17 +37,15 @@ export async function editPost(data: PostSchema) {
 		actionFn: async () => {
 			const validatedData = postSchema.parse(data);
 
-			if (data.id) {
+			if (validatedData.mode === "edit") {
 				await db
 					.update(post)
 					.set(validatedData)
 					.where(eq(post.id, +validatedData.id));
 
-				await db
-					.delete(postToTag)
-					.where(eq(postToTag.postId, +validatedData.id));
+				await db.delete(postTags).where(eq(postTags.postId, +validatedData.id));
 
-				await db.insert(postToTag).values(
+				await db.insert(postTags).values(
 					validatedData.tagIds.map((tagId) => ({
 						postId: validatedData.id!,
 						tagId,

@@ -3,7 +3,8 @@
 import { redirect } from "next/navigation";
 
 import { db } from "@/db";
-import { user, UserSchema, userSchema } from "@/db/schema";
+import { user } from "@/db/schema";
+import { UserSchema, userSchema } from "@/db/schema/user";
 import { executeAction } from "@/db/utils/executeAction";
 
 export async function signUp(data: UserSchema) {

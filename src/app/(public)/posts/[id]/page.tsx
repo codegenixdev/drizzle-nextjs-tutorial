@@ -7,8 +7,8 @@ import { CommentReplyForm } from "@/app/(public)/posts/[id]/_components/comment-
 import { getPostById } from "@/app/(public)/posts/[id]/queries";
 import { UserAvatar } from "@/app/_components/user-avatar";
 import { getRelatedPostsByCategoryId } from "@/app/queries";
-import { auth } from "@/auth";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { auth } from "@/lib/auth";
 
 type Props = { params: { id: string } };
 export default async function Page(props: Props) {

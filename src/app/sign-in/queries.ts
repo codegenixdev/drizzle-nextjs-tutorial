@@ -1,7 +1,8 @@
 import { and, eq } from "drizzle-orm";
 
 import { db } from "@/db";
-import { user, userSchema } from "@/db/schema";
+import { user } from "@/db/schema";
+import { userSchema } from "@/db/schema/user";
 import { executeQuery } from "@/db/utils/executeQuery";
 
 export async function getUserByEmailAndPassword(data: unknown) {

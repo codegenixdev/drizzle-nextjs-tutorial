@@ -1,6 +1,6 @@
 import { isRedirectError } from "next/dist/client/components/redirect";
 
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { getErrorMessage } from "@/lib/utils";
 
 type Options<T> = {

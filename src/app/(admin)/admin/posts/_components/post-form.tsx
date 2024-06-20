@@ -9,7 +9,7 @@ import SelectBox from "@/components/form-controllers/select-box";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
-import { PostSchema, postSchema } from "@/db/schema";
+import { PostSchema, postSchema } from "@/db/schema/post";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {
@@ -27,7 +27,7 @@ export function PostForm({ defaultValues, categoriesData, tagsData }: Props) {
 
 	const onSubmit: SubmitHandler<PostSchema> = async (data) => {
 		let response;
-		if (!data.id) {
+		if (data.mode === "create") {
 			response = await createPost(data);
 		} else {
 			response = await editPost(data);

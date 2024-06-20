@@ -5,8 +5,7 @@ import { z } from "zod";
 
 import { post, tag } from "@/db/schema";
 
-// TODO: change to postTags
-export const postToTag = pgTable(
+export const postTags = pgTable(
 	"post_to_tag",
 	{
 		postId: integer("post_id")
@@ -21,10 +20,10 @@ export const postToTag = pgTable(
 	})
 );
 
-export const postToTagRelations = relations(postToTag, ({ one }) => ({
-	tag: one(tag, { fields: [postToTag.tagId], references: [tag.id] }),
-	post: one(post, { fields: [postToTag.postId], references: [post.id] }),
+export const postTagsRelations = relations(postTags, ({ one }) => ({
+	tag: one(tag, { fields: [postTags.tagId], references: [tag.id] }),
+	post: one(post, { fields: [postTags.postId], references: [post.id] }),
 }));
 
-const insertPostToTagSchema = createInsertSchema(postToTag);
-export type InsertPostToTagSchema = z.infer<typeof insertPostToTagSchema>;
+const postTagsSchema = createInsertSchema(postTags);
+export type PostTagsSchema = z.infer<typeof postTagsSchema>;

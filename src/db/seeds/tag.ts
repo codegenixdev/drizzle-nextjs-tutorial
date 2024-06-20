@@ -1,20 +1,20 @@
-import { DBType } from "@/db";
+import { DB } from "@/db";
 import { tag } from "@/db/schema";
-import { InsertTagSchema } from "@/db/schema/tag";
+import { TagSchema } from "@/db/schema/tag";
 import { faker } from "@faker-js/faker";
 
 const mock = () => {
-	const data: InsertTagSchema[] = [];
+	const data: TagSchema[] = [];
 
-	for (let i = 0; i < 5; i++) {
+	for (let i = 0; i < 10; i++) {
 		data.push({
-			name: faker.lorem.word(),
+			name: faker.lorem.word({ length: 15 }),
 		});
 	}
 
 	return data;
 };
 
-export async function seed(db: DBType) {
+export async function seed(db: DB) {
 	await db.insert(tag).values(mock());
 }

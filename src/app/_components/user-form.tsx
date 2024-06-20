@@ -8,7 +8,7 @@ import { signUp } from "@/app/sign-up/actions";
 import { Input } from "@/components/form-controllers/input";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { UserSchema, userSchema } from "@/db/schema";
+import { UserSchema, userSchema } from "@/db/schema/user";
 import { toast } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 

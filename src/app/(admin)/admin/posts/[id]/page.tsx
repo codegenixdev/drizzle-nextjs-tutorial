@@ -25,6 +25,7 @@ export default async function Page({ params }: Props) {
 				categoriesData={categoriesData}
 				tagsData={tagsData}
 				defaultValues={{
+					mode: "edit",
 					tagIds: postData.tags.map((tag) => tag.tagId),
 					categoryId: postData.categoryId,
 					content: postData.content,

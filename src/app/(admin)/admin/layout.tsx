@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/auth";
 
 export default async function Layout({
 	children,

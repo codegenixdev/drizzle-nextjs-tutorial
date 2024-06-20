@@ -1,5 +1,6 @@
-import { db, DBType } from "@/db";
-import { post, PostSchema } from "@/db/schema/post";
+import { db, DB } from "@/db";
+import { post } from "@/db/schema";
+import { PostSchema } from "@/db/schema/post";
 import { faker } from "@faker-js/faker";
 
 const mock = async () => {
@@ -8,7 +9,10 @@ const mock = async () => {
 		db.query.category.findMany(),
 	]);
 
-	const data: Omit<PostSchema, "tagIds">[] = [];
+	const data: Omit<
+		Extract<PostSchema, { mode: "create" }>,
+		"tagIds" | "mode"
+	>[] = [];
 
 	for (let i = 0; i < 100; i++) {
 		data.push({
@@ -23,7 +27,7 @@ const mock = async () => {
 	return data;
 };
 
-export async function seed(db: DBType) {
+export async function seed(db: DB) {
 	const insertData = await mock();
 	await db.insert(post).values(insertData);
 }

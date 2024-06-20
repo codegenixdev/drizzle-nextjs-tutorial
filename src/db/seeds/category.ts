@@ -1,4 +1,4 @@
-import { DBType } from "@/db";
+import { DB } from "@/db";
 import { category } from "@/db/schema";
 import { CategorySchema } from "@/db/schema/category";
 
@@ -26,6 +26,6 @@ const mock: CategorySchema[] = [
 	},
 ];
 
-export async function seed(db: DBType) {
+export async function seed(db: DB) {
 	await db.insert(category).values(mock);
 }

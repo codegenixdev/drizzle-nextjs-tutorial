@@ -17,7 +17,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { SelectPostModel } from "@/db/schema";
+import { SelectPostModel } from "@/db/schema/post";
 
 type Props = {
 	rows: SelectPostModel[] | null;

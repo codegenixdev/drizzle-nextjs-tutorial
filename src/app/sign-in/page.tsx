@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { UserForm } from "@/app/_components/user-form";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 
 export default async function Page() {
 	const session = await auth();

@@ -10,8 +10,7 @@ import {
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-import { post } from "@/db/schema/post";
-import { user } from "@/db/schema/user";
+import { post, user } from "@/db/schema";
 
 export const comment = pgTable("comment", {
 	id: serial("id").primaryKey(),

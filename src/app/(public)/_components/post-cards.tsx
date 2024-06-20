@@ -9,7 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { SelectPostModel } from "@/db/schema";
+import { SelectPostModel } from "@/db/schema/post";
 
 type Props = {
 	data:

@@ -4,7 +4,8 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/db";
-import { user, userSchema, UserSchema } from "@/db/schema";
+import { user } from "@/db/schema";
+import { userSchema, UserSchema } from "@/db/schema/user";
 import { executeAction } from "@/db/utils/executeAction";
 
 export async function updateUser(data: UserSchema) {

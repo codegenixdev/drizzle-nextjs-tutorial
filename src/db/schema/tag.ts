@@ -3,7 +3,7 @@ import { pgTable, serial, varchar } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-import { postToTag } from "@/db/schema";
+import { postTags } from "@/db/schema";
 
 export const tag = pgTable("tag", {
 	id: serial("id").primaryKey(),
@@ -11,8 +11,8 @@ export const tag = pgTable("tag", {
 });
 
 export const tagRelations = relations(tag, ({ many }) => ({
-	postToTag: many(postToTag),
+	postToTag: many(postTags),
 }));
 
-const insertTagSchema = createInsertSchema(tag);
-export type InsertTagSchema = z.infer<typeof insertTagSchema>;
+const tagSchema = createInsertSchema(tag);
+export type TagSchema = z.infer<typeof tagSchema>;

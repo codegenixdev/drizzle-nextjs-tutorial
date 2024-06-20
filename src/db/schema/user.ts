@@ -9,7 +9,7 @@ import {
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-import { post } from "@/db/schema/post";
+import { post } from "@/db/schema";
 
 export const user = pgTable("user", {
 	id: serial("id").notNull().primaryKey(),
@@ -54,5 +54,4 @@ export const userSchema = z.union([
 ]);
 
 export type UserSchema = z.infer<typeof userSchema>;
-
 export type SelectUserModel = InferSelectModel<typeof user>;
