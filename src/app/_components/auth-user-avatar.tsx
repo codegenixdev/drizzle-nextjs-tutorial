@@ -5,7 +5,7 @@ import { SignOut } from "@/app/_components/sign-out";
 import { UserAvatar } from "@/app/_components/user-avatar";
 import { Button } from "@/components/ui/button";
 
-export default async function AuthUserAvatar() {
+export async function AuthUserAvatar() {
 	const currentUserData = await getCurrentUser();
 	if (!currentUserData)
 		return (

@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 
 import { updateUser } from "@/app/(admin)/admin/actions";
@@ -9,16 +8,15 @@ import { signUp } from "@/app/sign-up/actions";
 import { Input } from "@/components/form-controllers/input";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { toast } from "@/components/ui/use-toast";
 import { UserSchema, userSchema } from "@/db/schema";
+import { toast } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {
 	defaultValues: UserSchema;
 };
-export function UserForm({ defaultValues }: Props) {
-	const router = useRouter();
 
+export function UserForm({ defaultValues }: Props) {
 	const form = useForm<UserSchema>({
 		resolver: zodResolver(userSchema),
 		defaultValues,
@@ -28,24 +26,26 @@ export function UserForm({ defaultValues }: Props) {
 
 	const onSubmit: SubmitHandler<UserSchema> = async (data) => {
 		let response;
-		if (data.mode === "update") {
-			response = await updateUser(data);
-		} else if (data.mode === "signUp") {
-			response = await signUp(data);
-		} else {
-			response = await signIn(data);
+
+		switch (data.mode) {
+			case "update":
+				response = await updateUser(data);
+			case "signUp":
+				response = await signUp(data);
+			case "signIn":
+			default:
+				response = await signIn(data);
 		}
-		if (response) {
-			toast({
-				title: response.message,
-				variant: response.success === true ? "default" : "destructive",
-			});
-		}
+
+		toast(response);
 	};
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+			<form
+				onSubmit={form.handleSubmit(onSubmit)}
+				className="max-w-96 space-y-6"
+			>
 				{(mode === "signUp" || mode === "update") && (
 					<>
 						<Input control={form.control} name="fullName" label="Full Name" />

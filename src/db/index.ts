@@ -1,18 +1,14 @@
 import { drizzle } from "drizzle-orm/node-postgres";
-import { Client } from "pg";
+import { Pool } from "pg";
 
 import * as schema from "@/db/schema";
-import { registerService } from "@/db/utils/registerService";
 import env from "@/env";
 
-const client = new Client({
+const pool = new Pool({
 	connectionString: env.DATABASE_URL,
 });
 
-client.connect();
-
 // TODO: logger true
-
-export const db = registerService("db", () => drizzle(client, { schema }));
+export const db = drizzle(pool, { schema });
 
 export type DBType = typeof db;

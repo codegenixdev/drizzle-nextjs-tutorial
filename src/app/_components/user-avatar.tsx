@@ -7,8 +7,7 @@ type Props = {
 	data?: Pick<SelectUserModel, "id" | "fullName">;
 	href?: string;
 };
-export function UserAvatar(props: Props) {
-	const { data } = props;
+export function UserAvatar({ data, ...props }: Props) {
 	const { href = `/posts/user/${data?.id}` } = props;
 
 	return (

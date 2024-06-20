@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-import AuthUserAvatar from "@/app/_components/auth-user-avatar";
+import { AuthUserAvatar } from "@/app/_components/auth-user-avatar";
 import { getCategories } from "@/app/queries";
 import { Button } from "@/components/ui/button";
 
 export async function Navbar() {
-	const categoriesData = await getCategories();
+	const categoriesData = (await getCategories()) || [];
 
 	return (
 		<nav className="flex gap-5 py-5 justify-between items-center">
@@ -13,7 +13,7 @@ export async function Navbar() {
 				<Button variant="ghost" asChild>
 					<Link href="/">Home</Link>
 				</Button>
-				{(categoriesData || []).map((category) => (
+				{categoriesData.map((category) => (
 					<Button variant="ghost" asChild key={category.id}>
 						<Link href={`/categories/${category.id}`}>{category.name}</Link>
 					</Button>

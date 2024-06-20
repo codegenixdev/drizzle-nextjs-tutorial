@@ -1,6 +1,12 @@
-import { UserForm } from "@/app/_components/user-form";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+import { UserForm } from "@/app/_components/user-form";
+import { auth } from "@/auth";
+
+export default async function Page() {
+	const session = await auth();
+	if (!!session) redirect("/");
+
 	return (
 		<main>
 			<h1 className="text-2xl font-bold py-5">Sign in</h1>

@@ -3,11 +3,13 @@ import { AuthError } from "next-auth";
 import { twMerge } from "tailwind-merge";
 import { ZodError } from "zod";
 
+import { toast as rawToast } from "@/components/ui/use-toast";
+
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-export const getErrorMessage = (error: unknown): string => {
+export function getErrorMessage(error: unknown): string {
 	let message: string;
 
 	if (error instanceof ZodError) {
@@ -25,4 +27,22 @@ export const getErrorMessage = (error: unknown): string => {
 	}
 
 	return message;
-};
+}
+
+export function toast(response: unknown) {
+	if (typeof response === "object" && response !== null) {
+		const res = response as { message?: unknown; success?: unknown };
+
+		if (typeof res.message === "string" && typeof res.success === "boolean") {
+			rawToast({
+				title: res.message,
+				variant: res.success === true ? "default" : "destructive",
+			});
+			return;
+		}
+	}
+	rawToast({
+		title: "Invalid response",
+		variant: "destructive",
+	});
+}

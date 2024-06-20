@@ -25,8 +25,6 @@ export const userRelations = relations(user, ({ many }) => ({
 	posts: many(post),
 }));
 
-export type SelectUserModel = InferSelectModel<typeof user>;
-
 const baseSchema = createInsertSchema(user, {
 	fullName: (schema) => schema.fullName.min(1),
 	password: (schema) => schema.password.min(1),
@@ -56,3 +54,5 @@ export const userSchema = z.union([
 ]);
 
 export type UserSchema = z.infer<typeof userSchema>;
+
+export type SelectUserModel = InferSelectModel<typeof user>;
