@@ -26,11 +26,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-# !! WARNING: uncomment these lines for production and remove from git (HEAD and previous commits).
-# Never expose your .env files to other users.
-# These two lines are commented for ease of cloning the project source code.
-# .env*.local
-# .env
+.env*.local
+.env
 
 # vercel
 .vercel
