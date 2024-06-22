@@ -1,4 +1,4 @@
-import { count, eq } from "drizzle-orm";
+import { count, desc, eq } from "drizzle-orm";
 
 import { db } from "@/db";
 import { post } from "@/db/schema";
@@ -34,7 +34,9 @@ export async function getPostsByCategoryId(
 				.from(post)
 				.offset(page * limit)
 				.limit(limit)
-				.where(eq(post.categoryId, categoryId)),
+				.where(eq(post.categoryId, categoryId))
+				.orderBy(desc(post.createdAt)),
+
 		serverErrorMessage: "getCategoryPostsCount",
 		isProtected: false,
 	});

@@ -2,11 +2,11 @@ import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 
 import { PostCards } from "@/app/(public)/_components/post-cards";
-import { getLatestPosts } from "@/app/queries";
+import { getPosts } from "@/app/queries";
 import { Button } from "@/components/ui/button";
 
 export default async function Page() {
-	const latestPostsData = await getLatestPosts();
+	const latestPostsData = await getPosts(1, 4);
 
 	return (
 		<main>

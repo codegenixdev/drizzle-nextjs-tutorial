@@ -19,6 +19,7 @@ export async function Navbar() {
 					</Button>
 				))}
 			</div>
+
 			<AuthUserAvatar />
 		</nav>
 	);

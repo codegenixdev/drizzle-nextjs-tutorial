@@ -1,5 +1,4 @@
 TODO:
-order by create time for all posts
 search by title for posts
 cascade or other actions
 check if updatedAt updates or not

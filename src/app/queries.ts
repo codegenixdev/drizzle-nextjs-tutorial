@@ -20,24 +20,6 @@ export async function getTags() {
 	});
 }
 
-export async function getLatestPosts() {
-	return executeQuery({
-		queryFn: async () =>
-			await db.query.post.findMany({
-				limit: 4,
-				columns: {
-					id: true,
-					title: true,
-					updatedAt: true,
-					shortDescription: true,
-				},
-				orderBy: [desc(post.createdAt)],
-			}),
-		serverErrorMessage: "getLatestPosts",
-		isProtected: false,
-	});
-}
-
 export async function getRelatedPostsByCategoryId(categoryId: number) {
 	return executeQuery({
 		queryFn: async () =>
@@ -68,13 +50,17 @@ export async function getPostsCount() {
 	});
 }
 
-export async function getPosts(page: number, limit: number) {
+export async function getPosts(
+	page: number,
+	limit: number,
+	searchTerm?: string
+) {
 	return executeQuery({
 		queryFn: async () =>
 			await db.query.post.findMany({
 				limit,
 				offset: page * limit,
-				orderBy: post.id,
+				orderBy: [desc(post.createdAt)],
 			}),
 		serverErrorMessage: "getPosts",
 		isProtected: false,
