@@ -1,5 +1,4 @@
 TODO:
-search by title for posts
 cascade or other actions
 check if updatedAt updates or not
 sign in? auth bugs?
