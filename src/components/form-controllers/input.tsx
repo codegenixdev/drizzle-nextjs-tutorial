@@ -12,7 +12,7 @@ import { Input as RawInput } from "@/components/ui/input";
 type Props<TFieldValues extends FieldValues> = {
 	control: Control<TFieldValues>;
 	name: Path<TFieldValues>;
-	label: string;
+	label?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 export function Input<TFieldValues extends FieldValues>({
 	control,

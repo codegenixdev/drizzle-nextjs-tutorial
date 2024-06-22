@@ -6,7 +6,7 @@ import { getPosts } from "@/app/queries";
 import { Button } from "@/components/ui/button";
 
 export default async function Page() {
-	const latestPostsData = await getPosts(1, 4);
+	const latestPostsData = await getPosts(0, 4);
 
 	return (
 		<main>

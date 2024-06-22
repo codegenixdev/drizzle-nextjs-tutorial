@@ -18,13 +18,21 @@ export function Search() {
 	const router = useRouter();
 
 	const onSubmit: SubmitHandler<z.infer<typeof schema>> = (data) => {
-		router.push(`/search?q=${data.searchText}`);
+		if (data.searchText !== "") {
+			router.push(`/search?q=${data.searchText}`);
+		} else {
+			router.push("/posts");
+		}
 	};
 
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>
-				<Input control={form.control} name="searchText" label="Search..." />
+				<Input
+					control={form.control}
+					name="searchText"
+					placeholder="Search..."
+				/>
 			</form>
 		</Form>
 	);

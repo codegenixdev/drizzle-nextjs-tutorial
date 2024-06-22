@@ -1,4 +1,4 @@
-import { count, desc, eq } from "drizzle-orm";
+import { count, desc, eq, ilike } from "drizzle-orm";
 
 import { db } from "@/db";
 import { post, user } from "@/db/schema";
@@ -38,18 +38,24 @@ export async function getRelatedPostsByCategoryId(categoryId: number) {
 	});
 }
 
-export async function getPostsCount() {
+export async function getPostsCount(searchTerm?: string) {
 	return executeQuery({
 		queryFn: async () =>
 			await db
 				.select({ count: count() })
 				.from(post)
+				.where(ilike(post.title, `%${searchTerm || ""}%`))
 				.then((res) => res[0].count),
 		serverErrorMessage: "getPostsCount",
 		isProtected: false,
 	});
 }
 
+// await db.query.post.findMany({
+// 	limit,
+// 	offset: page * limit,
+// 	orderBy: [desc(post.createdAt)],
+// }),
 export async function getPosts(
 	page: number,
 	limit: number,
@@ -57,11 +63,14 @@ export async function getPosts(
 ) {
 	return executeQuery({
 		queryFn: async () =>
-			await db.query.post.findMany({
-				limit,
-				offset: page * limit,
-				orderBy: [desc(post.createdAt)],
-			}),
+			db
+				.select()
+				.from(post)
+				.orderBy(desc(post.createdAt))
+				.limit(limit)
+				.offset(page * limit)
+				.where(ilike(post.title, `%${searchTerm || ""}%`)),
+
 		serverErrorMessage: "getPosts",
 		isProtected: false,
 	});

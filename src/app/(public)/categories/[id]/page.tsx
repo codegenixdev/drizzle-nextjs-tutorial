@@ -37,7 +37,7 @@ export default async function Page(props: Props) {
 			<Pagination
 				page={page}
 				pagesCount={pagesCount}
-				urlPrefix={`/categories/${props.params.id}`}
+				urlPrefix={`/categories/${props.params.id}?`}
 			/>
 		</main>
 	);

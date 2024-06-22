@@ -38,7 +38,7 @@ export default async function Page(props: Props) {
 			<Pagination
 				page={page}
 				pagesCount={pagesCount}
-				urlPrefix={`/admin/posts`}
+				urlPrefix={`/admin/posts?`}
 			/>
 		</main>
 	);

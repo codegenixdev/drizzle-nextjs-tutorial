@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Search } from "@/app/(public)/search/_components/search";
 import { AuthUserAvatar } from "@/app/_components/auth-user-avatar";
 import { getCategories } from "@/app/queries";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ export async function Navbar() {
 				))}
 			</div>
 
+			<Search />
 			<AuthUserAvatar />
 		</nav>
 	);
