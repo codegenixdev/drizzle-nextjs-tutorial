@@ -3,10 +3,19 @@ import { count, desc, eq, ilike } from "drizzle-orm";
 import { db } from "@/db";
 import { post, user } from "@/db/schema";
 import { executeQuery } from "@/db/utils/executeQuery";
+import { wait } from "@/lib/utils";
 
 export async function getCategories() {
 	return executeQuery({
-		queryFn: async () => await db.query.category.findMany(),
+		queryFn: async () => {
+			await wait();
+			return [
+				{
+					id: 1,
+					name: "mock category",
+				},
+			];
+		},
 		serverErrorMessage: "getCategories",
 		isProtected: false,
 	});
@@ -14,7 +23,10 @@ export async function getCategories() {
 
 export async function getTags() {
 	return executeQuery({
-		queryFn: async () => await db.query.tag.findMany(),
+		queryFn: async () => {
+			await wait();
+			return [{ id: 1, name: "mock tag" }];
+		},
 		serverErrorMessage: "getTags",
 		isProtected: false,
 	});
