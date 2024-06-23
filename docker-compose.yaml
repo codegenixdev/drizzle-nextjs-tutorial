@@ -1,7 +1,8 @@
 version: "3.8"
 
 services:
-  postgresdb:
+  db:
+    container_name: db
     image: postgres:16
     environment:
       - POSTGRES_USER=${DB_USER}
@@ -12,14 +13,23 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 
-  nextjs:
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  web:
+    container_name: web
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - 3000:3000
     depends_on:
-      - postgresdb
+      - db
     env_file:
       - .env
     develop:

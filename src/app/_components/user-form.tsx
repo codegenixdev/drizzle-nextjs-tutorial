@@ -30,11 +30,13 @@ export function UserForm({ defaultValues }: Props) {
 		switch (data.mode) {
 			case "update":
 				response = await updateUser(data);
+				break;
 			case "signUp":
 				response = await signUp(data);
+				break;
 			case "signIn":
-			default:
 				response = await signIn(data);
+				break;
 		}
 
 		toast(response);

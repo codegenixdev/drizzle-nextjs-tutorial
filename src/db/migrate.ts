@@ -14,6 +14,7 @@ const db = drizzle(pool);
 async function main() {
 	if (config.out) {
 		await migrate(db, { migrationsFolder: config.out });
+		console.log("Migration done!");
 	}
 }
 

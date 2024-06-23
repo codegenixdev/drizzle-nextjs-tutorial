@@ -20,9 +20,11 @@ export async function createPost(data: PostSchema) {
 					.returning({ postId: post.id })
 			)[0];
 
-			await db
-				.insert(postTags)
-				.values(validatedData.tagIds.map((tagId) => ({ postId, tagId })));
+			if (validatedData.tagIds.length > 0) {
+				await db
+					.insert(postTags)
+					.values(validatedData.tagIds.map((tagId) => ({ postId, tagId })));
+			}
 
 			revalidatePath("/admin/posts");
 		},

@@ -30,7 +30,11 @@ export function getErrorMessage(error: unknown): string {
 }
 
 export function toast(response: unknown) {
-	if (typeof response === "object" && response !== null) {
+	if (
+		typeof response === "object" &&
+		response !== null &&
+		response !== undefined
+	) {
 		const res = response as { message?: unknown; success?: unknown };
 
 		if (typeof res.message === "string" && typeof res.success === "boolean") {
@@ -41,8 +45,10 @@ export function toast(response: unknown) {
 			return;
 		}
 	}
-	rawToast({
-		title: "Invalid response",
-		variant: "destructive",
-	});
+	if (!!response) {
+		rawToast({
+			title: "Invalid response",
+			variant: "destructive",
+		});
+	}
 }
