@@ -2,7 +2,7 @@
 
 export async function deletePostById(id: number) {
 	return {
-		status: true,
+		success: true,
 		message: "Post deleted successfully",
 	};
 }

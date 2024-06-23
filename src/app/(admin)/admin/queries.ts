@@ -1,8 +1,12 @@
+import { auth } from "@/lib/auth";
 import { wait } from "@/lib/utils";
 
 export async function getCurrentUser() {
 	await wait();
 
+	const session = await auth();
+
+	if (!session) return null;
 	return {
 		id: 1,
 		fullName: "mock full name",

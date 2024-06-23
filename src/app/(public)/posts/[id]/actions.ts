@@ -5,5 +5,5 @@ import { wait } from "@/lib/utils";
 
 export async function createComment(data: CommentSchema) {
 	await wait();
-	return { status: true, message: "Comment created successfully" };
+	return { success: true, message: "Comment created successfully" };
 }
