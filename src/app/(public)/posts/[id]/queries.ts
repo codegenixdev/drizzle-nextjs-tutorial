@@ -16,17 +16,11 @@ export async function getPostById(id: number) {
 			id: 1,
 			name: "mock category",
 		},
-		user: [
-			{
-				id: 1,
-				fullName: "mock full name",
-				age: 18,
-				password: "mock password",
-				email: "mock@mock.com",
-				createdAt: "2024-06-23 16:05:26.954952",
-				updatedAt: "2024-06-23 16:05:26.954952",
-			},
-		],
+		user: {
+			id: 1,
+			fullName: "mock full name",
+		},
+
 		comments: [
 			{
 				id: 1,
@@ -36,6 +30,7 @@ export async function getPostById(id: number) {
 				postId: 1,
 				createdAt: "2024-06-23 16:05:26.954952",
 				updatedAt: "2024-06-23 16:05:26.954952",
+				user: { id: 1, fullName: "mock full name" },
 			},
 		],
 	};
