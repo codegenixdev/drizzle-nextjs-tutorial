@@ -1,20 +1,8 @@
-import { count, desc, eq } from "drizzle-orm";
-
-import { db } from "@/db";
-import { post } from "@/db/schema";
-import { executeQuery } from "@/db/utils/executeQuery";
+import { wait } from "@/lib/utils";
 
 export async function getCategoryPostsCount(categoryId: number) {
-	return executeQuery({
-		queryFn: async () =>
-			(
-				await db
-					.select({ count: count() })
-					.from(post)
-					.where(eq(post.categoryId, categoryId))
-			)[0].count,
-		isProtected: false,
-	});
+	await wait();
+	return 1;
 }
 
 export async function getPostsByCategoryId(
@@ -22,22 +10,13 @@ export async function getPostsByCategoryId(
 	limit: number,
 	categoryId: number
 ) {
-	return executeQuery({
-		queryFn: async () =>
-			await db
-				.select({
-					id: post.id,
-					title: post.title,
-					shortDescription: post.shortDescription,
-					updatedAt: post.updatedAt,
-				})
-				.from(post)
-				.offset(page * limit)
-				.limit(limit)
-				.where(eq(post.categoryId, categoryId))
-				.orderBy(desc(post.createdAt)),
-
-		serverErrorMessage: "getCategoryPostsCount",
-		isProtected: false,
-	});
+	await wait();
+	return [
+		{
+			id: 1,
+			title: "mock title",
+			shortDescription: "mock short description",
+			updatedAt: "2024-06-23 16:05:26.954952",
+		},
+	];
 }

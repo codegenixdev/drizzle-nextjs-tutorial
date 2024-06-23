@@ -1,23 +1,42 @@
-import { eq } from "drizzle-orm";
-
-import { db } from "@/db";
-import { post } from "@/db/schema";
-import { executeQuery } from "@/db/utils/executeQuery";
+import { wait } from "@/lib/utils";
 
 export async function getPostById(id: number) {
-	return executeQuery({
-		queryFn: async () =>
-			await db.query.post.findFirst({
-				where: eq(post.id, id),
-				with: {
-					category: true,
-					user: {
-						columns: { id: true, fullName: true },
-					},
-					comments: { with: { user: true } },
-				},
-			}),
-		serverErrorMessage: "getPostById",
-		isProtected: false,
-	});
+	await wait();
+
+	return {
+		id: 1,
+		createdAt: "2024-06-23 16:05:26.954952",
+		updatedAt: "2024-06-23 16:05:26.954952",
+		userId: 1,
+		title: "mock title",
+		shortDescription: "mock short description",
+		content: "mock content",
+		categoryId: 1,
+		category: {
+			id: 1,
+			name: "mock category",
+		},
+		user: [
+			{
+				id: 1,
+				fullName: "mock full name",
+				age: 18,
+				password: "mock password",
+				email: "mock@mock.com",
+				createdAt: "2024-06-23 16:05:26.954952",
+				updatedAt: "2024-06-23 16:05:26.954952",
+			},
+		],
+		comments: [
+			{
+				id: 1,
+				parentId: null,
+				userId: 1,
+				content: "mock content",
+				postId: 1,
+				createdAt: "2024-06-23 16:05:26.954952",
+				updatedAt: "2024-06-23 16:05:26.954952",
+			},
+		],
+	};
 }

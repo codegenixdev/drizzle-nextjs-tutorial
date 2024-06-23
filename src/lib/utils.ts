@@ -53,6 +53,6 @@ export function toast(response: unknown) {
 	}
 }
 
-export async function wait(duration: number = 1000) {
+export async function wait(duration: number = 0) {
 	return new Promise((resolve) => setTimeout(resolve, duration));
 }
