@@ -34,7 +34,7 @@ export async function createPost(data: PostSchema) {
 	});
 }
 
-export async function editPost(data: PostSchema) {
+export async function updatePost(data: PostSchema) {
 	return executeAction({
 		actionFn: async () => {
 			const validatedData = postSchema.parse(data);
@@ -58,7 +58,7 @@ export async function editPost(data: PostSchema) {
 			revalidatePath("/admin/posts");
 		},
 		isProtected: true,
-		clientSuccessMessage: "Post edited successfully",
-		serverErrorMessage: "editPost",
+		clientSuccessMessage: "Post updated successfully",
+		serverErrorMessage: "updatePost",
 	});
 }
