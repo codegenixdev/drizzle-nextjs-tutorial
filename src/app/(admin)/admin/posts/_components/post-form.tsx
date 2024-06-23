@@ -3,7 +3,10 @@
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { createPost, editPost } from "@/app/(admin)/admin/posts/create/actions";
+import {
+	createPost,
+	updatePost,
+} from "@/app/(admin)/admin/posts/create/actions";
 import { Input } from "@/components/form-controllers/input";
 import SelectBox from "@/components/form-controllers/select-box";
 import { Button } from "@/components/ui/button";
@@ -30,7 +33,7 @@ export function PostForm({ defaultValues, categoriesData, tagsData }: Props) {
 		if (data.mode === "create") {
 			response = await createPost(data);
 		} else {
-			response = await editPost(data);
+			response = await updatePost(data);
 		}
 		toast({
 			title: response.message,
