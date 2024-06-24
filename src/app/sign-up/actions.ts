@@ -17,6 +17,7 @@ export async function signUp(data: UserSchema) {
 			}
 		},
 		isProtected: false,
+
 		clientSuccessMessage: "Signed up successfully",
 		serverErrorMessage: "signUp",
 	});
