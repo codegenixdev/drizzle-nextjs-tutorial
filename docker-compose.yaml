@@ -19,28 +19,5 @@ services:
     depends_on:
       - db
 
-  web:
-    container_name: web
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 3000:3000
-    depends_on:
-      - db
-    env_file:
-      - .env
-    develop:
-      watch:
-        - path: ./package.json
-          action: rebuild
-        - path: ./next.config.mjs
-          action: rebuild
-        - path: ./package-lock.json
-          action: rebuild
-        - path: .
-          target: /app
-          action: sync
-
 volumes:
   db-data:
