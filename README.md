@@ -40,6 +40,12 @@ If you want to set up the full project:
    cd drizzle-nextjs-tutorial
    ```
 
+### Setting up the environment variables:
+
+```bash
+cp .env.sample .env
+```
+
 ### Setting Up the Database
 
 1. Use Docker Compose to set up the PostgreSQL server:
