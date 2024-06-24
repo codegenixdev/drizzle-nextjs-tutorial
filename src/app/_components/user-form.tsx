@@ -8,23 +8,20 @@ import { signUp } from "@/app/sign-up/actions";
 import { Input } from "@/components/form-controllers/input";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { UserSchema, userSchema } from "@/db/schema/user";
 import { toast } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {
-	defaultValues: UserSchema;
+	defaultValues: any;
 };
 
 export function UserForm({ defaultValues }: Props) {
-	const form = useForm<UserSchema>({
-		resolver: zodResolver(userSchema),
+	const form = useForm<any>({
 		defaultValues,
 	});
 
 	const mode = useWatch({ control: form.control, name: "mode" });
 
-	const onSubmit: SubmitHandler<UserSchema> = async (data) => {
+	const onSubmit: SubmitHandler<any> = async (data) => {
 		let response;
 
 		switch (data.mode) {

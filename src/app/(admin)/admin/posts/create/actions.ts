@@ -1,14 +1,13 @@
 "use server";
 
-import { PostSchema } from "@/db/schema/post";
 import { wait } from "@/lib/utils";
 
-export async function createPost(data: PostSchema) {
+export async function createPost(data: unknown) {
 	await wait();
 	return { success: true, message: "Post created successfully" };
 }
 
-export async function updatePost(data: PostSchema) {
+export async function updatePost(data: unknown) {
 	await wait();
 	return { success: true, message: "Post updated successfully" };
 }
