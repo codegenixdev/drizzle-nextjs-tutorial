@@ -1,39 +1,68 @@
-TODO:
-cascade or other actions
+# Drizzle Nextjs Tutorial
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Overview
+
+This project is for my full drizzle course tutorial on my youtube channel [@codegenix](https://youtube.com/@codegenix).This is a multi author blog website. It utilizes Next.js, typescript, drizzle orm and postgres. Follow the instructions below to set up the project and get it running locally.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [Node.js](https://nodejs.org/) (v20.15.x or higher)
+- [Docker](https://www.docker.com/)
+- [Git](https://git-scm.com/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Option 1: Cloning the Frontend Branch
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+If you want to follow the tutorial:
 
-## Learn More
+1. Clone the `frontend` branch of the repository:
+   ```bash
+   git clone -b frontend https://github.com/codegenixdev/drizzle-nextjs-tutorial.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd drizzle-nextjs-tutorial
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+#### Option 2: Cloning the Master Branch
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If you want to set up the full project:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/codegenixdev/drizzle-nextjs-tutorial.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd drizzle-nextjs-tutorial
+   ```
 
-## Deploy on Vercel
+### Setting Up the Database
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Use Docker Compose to set up the PostgreSQL server:
+   ```bash
+   docker-compose up
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Installing Dependencies
+
+1. Install the necessary Node.js packages:
+   ```bash
+   npm install
+   ```
+
+### Running the Project
+
+1. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+### Accessing the Project
+
+- Open your browser and go to [http://localhost:3000](http://localhost:3000) to see the application running.
+
+For any questions or feedback, check my youtube channel [youtube.com/@codegenix](https://youtube.com/@codegenix).
