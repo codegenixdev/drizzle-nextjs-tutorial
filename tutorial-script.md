@@ -1,11 +1,13 @@
 ## Script
 
+check script
 add additional description that why are we doing some of the things
 
 ## Video Script
 
 tutorial is fully focused on backend, sql and drizzle and if you are a backend developer you can completely follow the tutorial
-i don't want you to learn frontend here but for you to better understand the possibilities of drizzle orm with real world example and save time, i prepared only a frontend app that relies on mock data. there is no real backend or database here. we will replace the mock with real
+i don't want you to learn frontend here but for you to better understand the possibilities of drizzle orm with real world example and save time, i prepared only a frontend app template that relies on mock data only. there is no real backend or database here currently. we're gonna replace the mock with real in this tutorial.
+
 if you want to follow:
 
 ```bash
