@@ -6,11 +6,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
-		"db:generate": "drizzle-kit generate",
-		"db:migrate": "tsx src/db/migrate.ts",
-		"db:update": "npm run db:generate && npm run db:migrate",
-		"db:seed": "tsx src/db/seed.ts"
+		"lint": "next lint"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.6.0",
