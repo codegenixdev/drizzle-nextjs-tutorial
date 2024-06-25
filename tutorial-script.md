@@ -1,37 +1,6 @@
-# Todos
-
-check if project on both branches builds
-check all actions are use server
-
 ## Script
 
 add additional description that why are we doing some of the things
-
-## Commit These
-
-### eslint.json
-
-```json
-{
-	"extends": "next/core-web-vitals"
-}
-```
-
-### tsconfig.ts
-
-```json
-"paths": {
-  "@/*": ["./src/*"]
-}
-```
-
-### next.config.mjs
-
-```typescript
-const nextConfig = {};
-```
-
-remove package.json db scripts
 
 ## Video Script
 
