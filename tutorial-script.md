@@ -1,16 +1,15 @@
-check script
-add additional description that why are we doing some of the things
-
 ## Video Script
 
 tutorial is fully focused on backend, sql and drizzle and if you are a backend developer you can completely follow the tutorial
-i don't want you to learn frontend here but for you to better understand the possibilities of drizzle orm with real world example and save time, i prepared only a frontend app template that relies on mock data only. there is no real backend or database here currently. we're gonna replace the mock with real in this tutorial.
+i don't want you to learn frontend here but for you to better understand the possibilities of drizzle orm with real world example and save time, i prepared only a frontend app template that relies on mock data only.
 
 if you want to follow:
 
 ```bash
 git clone -b frontend https://github.com/codegenixdev/drizzle-nextjs-tutorial.git
 ```
+
+there is no real backend or database here currently. we're gonna replace the mock with real in this tutorial.
 
 show .nvmrc
 
@@ -163,6 +162,7 @@ export const post = pgTable("post", {
 	updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });
 ```
+
 show an example of enum capabilities
 
 ### comment.ts
