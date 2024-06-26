@@ -1,6 +1,3 @@
-## Script
-Add post status enum table
-
 check script
 add additional description that why are we doing some of the things
 
@@ -166,6 +163,7 @@ export const post = pgTable("post", {
 	updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });
 ```
+show an example of enum capabilities
 
 ### comment.ts
 
