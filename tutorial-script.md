@@ -1,4 +1,5 @@
 ## Script
+Add post status enum table
 
 check script
 add additional description that why are we doing some of the things
